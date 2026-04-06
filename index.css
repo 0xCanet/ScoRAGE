@@ -788,6 +788,21 @@ h4 {
   max-width: 520px;
 }
 
+.hero__stat-line {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+  font-size: var(--text-body-sm);
+  color: var(--color-ash);
+  line-height: 1.4;
+}
+
+.hero__stat-sep {
+  color: var(--color-steel);
+  font-weight: 700;
+}
+
 .hero__chains {
   display: flex;
   align-items: center;
@@ -1331,9 +1346,11 @@ h4 {
 
 .pricing__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-6);
   align-items: flex-start;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .pricing-card {
@@ -1625,11 +1642,7 @@ h4 {
   }
 
   .pricing__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .pricing__grid > :last-child {
-    grid-column: 1 / -1;
+    max-width: none;
   }
 
   .footer__grid {
@@ -1720,6 +1733,15 @@ h4 {
     gap: var(--space-3);
   }
 
+  .hero__stat-line {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .hero__stat-sep {
+    display: none;
+  }
+
   .btn-group {
     flex-direction: column;
     align-items: stretch;
@@ -1784,10 +1806,7 @@ h4 {
 
   .pricing__grid {
     grid-template-columns: 1fr;
-  }
-
-  .pricing__grid > :last-child {
-    grid-column: auto;
+    max-width: none;
   }
 
   .footer__grid {
