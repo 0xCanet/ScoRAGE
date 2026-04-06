@@ -29,7 +29,7 @@
         <a href="#pricing" class="navbar__link">Pricing</a>
         <a href="#faq" class="navbar__link">FAQ</a>
         <div class="navbar__cta">
-          <a href="#cta-final" class="btn-primary btn-primary--sm">Analyser un projet</a>
+          <a href="#cta-final" class="btn-primary btn-primary--sm">Scanner un token</a>
         </div>
       </div>
       <button class="navbar__mobile-toggle" id="mobile-toggle" aria-label="Ouvrir le menu">
@@ -51,21 +51,21 @@
 
         <!-- Text column -->
         <div class="hero__text">
-          <p class="hero__pretitle">Risk intelligence · Solana · BSC · Base · Ethereum</p>
+          <p class="hero__pretitle">Solana · BSC · Base · Ethereum</p>
           <h1 class="hero__title">
-            Tu ne sais pas<br>ce que tu <span class="text-blood">achètes.</span>
+            Avant d'investir,<br><span class="text-blood">scanne.</span>
           </h1>
           <p class="hero__subtitle">
-            Colle une adresse de contrat. Reçois un rapport de risque complet en 2 à 5 minutes. Score, verdict, red flags, export PDF. Pas un avis — un diagnostic.
+            Colle l'adresse d'un token. ScoRAGE analyse le contrat, l'équipe, la liquidité, les red flags — et te livre un verdict clair en 2 à 5 minutes. Rapport Web + PDF. Score sur 100. Framework F.I.R.E.S.
           </p>
-          <div class="hero__stat-line">
-            <span class="hero__stat"><span class="text-blood" style="font-family:'JetBrains Mono',monospace;font-weight:700;">73%</span> des tokens lancés chaque jour sont des pièges</span>
-            <span class="hero__stat-sep">·</span>
-            <span class="hero__stat">ScoRAGE les détecte <span class="text-blood">avant</span> que tu investisses</span>
+          <div class="hero__input-hint">
+            <span class="hero__input-prompt">$</span>
+            <span class="hero__input-text">0x8f3c...a91d</span>
+            <span class="hero__input-cursor"></span>
           </div>
           <div class="btn-group">
-            <a href="#cta-final" class="btn-primary">Analyser un projet</a>
-            <a href="#proof" class="btn-secondary">Voir un rapport réel</a>
+            <a href="#cta-final" class="btn-primary">Scanner un token</a>
+            <a href="#proof" class="btn-secondary">Voir un vrai rapport</a>
           </div>
         </div>
 
@@ -73,7 +73,7 @@
         <div class="hero__score-card">
           <div class="card-score">
             <div class="scan-line" aria-hidden="true"></div>
-            <div class="card-score__label">SCORE DE RISQUE</div>
+            <div class="card-score__label">RÉSULTAT D'ANALYSE</div>
             <div class="card-score__value card-score__value--high">27</div>
             <div class="card-score__label">/ 100</div>
             <div style="margin-top: var(--space-4);">
@@ -97,8 +97,14 @@
   <section class="proof section section--abyss" id="proof">
     <div class="container">
       <div class="section__header section__header--center">
-        <h2>Voici ce que tu obtiens. <span class="text-blood">En vrai.</span></h2>
-        <p>Rapport Web interactif + export PDF. Score, verdict, red flags, analyse. Un document que tu peux partager, archiver, et utiliser pour décider.</p>
+        <h2>Le rapport que tu reçois. <span class="text-blood">Pas un mockup.</span></h2>
+        <p>Données réelles. Verdict exploitable. Format Web interactif + export PDF.</p>
+      </div>
+
+      <!-- Format toggle -->
+      <div class="proof__format-toggle">
+        <span class="proof__format-tab proof__format-tab--active">Rapport Web</span>
+        <span class="proof__format-tab">Export PDF</span>
       </div>
 
       <div class="mockup-frame">
@@ -171,17 +177,20 @@
             <span class="badge-safe"><span>✓</span> Pas de proxy upgradeable</span>
           </div>
 
-          <!-- Analysis extract -->
+          <!-- Analysis verdict -->
+          <div class="mockup-verdict-header">
+            <span class="mockup-verdict-label">VERDICT SCORAGE</span>
+          </div>
           <div class="mockup-analysis">
-            Le contrat MoonDoge Finance présente des signaux critiques incompatibles avec un investissement. La fonction mint() permet la création illimitée de tokens. 92% du supply est concentré dans un seul wallet. Aucune liquidité verrouillée. Pattern de honeypot identifié : buy tax 0%, sell tax 99%.
+            Le contrat MoonDoge Finance présente des signaux critiques incompatibles avec un investissement. La fonction <code>mint()</code> permet la création illimitée de tokens. 92% du supply est concentré dans un seul wallet. Aucune liquidité verrouillée. Pattern de honeypot identifié : <code>buy tax 0%, sell tax 99%</code>.
           </div>
 
         </div>
       </div>
 
       <div class="btn-group" style="justify-content: center; margin-top: var(--space-8);">
-        <a href="#cta-final" class="btn-primary">Lancer une analyse</a>
-        <a href="#" class="btn-ghost">Télécharger le PDF de ce rapport →</a>
+        <a href="#cta-final" class="btn-primary">Scanner un token</a>
+        <a href="#" class="btn-ghost">Télécharger ce rapport en PDF →</a>
       </div>
     </div>
   </section>
@@ -528,29 +537,29 @@
   <section class="pricing section section--abyss" id="pricing">
     <div class="container">
       <div class="section__header section__header--center">
-        <h2>Un prix. <span class="text-blood">Pas de piège.</span></h2>
-        <p>Teste gratuitement. Paie quand ScoRAGE t'a déjà fait économiser.</p>
+        <h2>Combien coûte <span class="text-blood">une décision éclairée ?</span></h2>
+        <p>Moins cher qu'un mauvais investissement.</p>
       </div>
 
       <div class="pricing__grid">
 
         <!-- Free tier -->
         <div class="card pricing-card">
-          <div class="pricing-card__name">Gratuit</div>
+          <div class="pricing-card__name">Starter</div>
           <div class="pricing-card__price">0€</div>
-          <div class="pricing-card__period">Pour voir si ça marche</div>
+          <div class="pricing-card__period">3 scans / mois · sans carte</div>
           <div class="pricing-card__features">
-            <div class="pricing-card__feature">
-              <span class="pricing-card__feature-check">✓</span>
-              <span>3 analyses / mois</span>
-            </div>
             <div class="pricing-card__feature">
               <span class="pricing-card__feature-check">✓</span>
               <span>Rapport Web</span>
             </div>
             <div class="pricing-card__feature">
               <span class="pricing-card__feature-check">✓</span>
-              <span>Score + verdict + red flags</span>
+              <span>Score F.I.R.E.S. + verdict</span>
+            </div>
+            <div class="pricing-card__feature">
+              <span class="pricing-card__feature-check">✓</span>
+              <span>Red flags détaillés</span>
             </div>
             <div class="pricing-card__feature">
               <span class="pricing-card__feature-check" style="color: var(--color-ash);">—</span>
@@ -562,38 +571,34 @@
             </div>
             <div class="pricing-card__feature">
               <span class="pricing-card__feature-check" style="color: var(--color-ash);">—</span>
-              <span style="color: var(--color-ash);">Rapports partageables</span>
+              <span style="color: var(--color-ash);">Partage de rapports</span>
             </div>
           </div>
           <div class="pricing-card__cta">
-            <a href="#cta-final" class="btn-secondary" style="width: 100%; justify-content: center;">Essayer gratis</a>
+            <a href="#cta-final" class="btn-secondary" style="width: 100%; justify-content: center;">Commencer gratis</a>
           </div>
         </div>
 
         <!-- Pro tier (featured) -->
         <div class="card pricing-card pricing-card--featured card--highlight">
           <div class="pricing-card__badge">
-            <span class="badge-recommend">LE CHOIX ÉVIDENT</span>
+            <span class="badge-recommend">POUR CEUX QUI INVESTISSENT</span>
           </div>
           <div class="pricing-card__name">Pro</div>
           <div class="pricing-card__price">29€<span style="font-size: var(--text-body); font-weight: 400; color: var(--color-ash);">/mois</span></div>
-          <div class="pricing-card__period">Sans engagement · Annulable 1 clic</div>
+          <div class="pricing-card__period">Sans engagement · annulable immédiatement</div>
           <div class="pricing-card__features">
             <div class="pricing-card__feature">
               <span class="pricing-card__feature-check">✓</span>
-              <span>50 analyses / mois</span>
+              <span><strong>50 analyses / mois</strong></span>
             </div>
             <div class="pricing-card__feature">
               <span class="pricing-card__feature-check">✓</span>
-              <span>Rapport Web complet</span>
+              <span>Rapport Web + export PDF</span>
             </div>
             <div class="pricing-card__feature">
               <span class="pricing-card__feature-check">✓</span>
-              <span>Export PDF pro</span>
-            </div>
-            <div class="pricing-card__feature">
-              <span class="pricing-card__feature-check">✓</span>
-              <span>Historique illimité</span>
+              <span>Historique complet</span>
             </div>
             <div class="pricing-card__feature">
               <span class="pricing-card__feature-check">✓</span>
@@ -607,13 +612,15 @@
           <div class="pricing-card__cta">
             <a href="#cta-final" class="btn-primary" style="width: 100%; justify-content: center;">Passer Pro — 29€/mois</a>
           </div>
-          <div style="text-align: center; margin-top: var(--space-3); font-size: var(--text-caption); color: var(--color-ash);">1 analyse Pro ≈ 0,58€. Un rugpull coûte plus.</div>
+          <div style="text-align: center; margin-top: var(--space-3); font-size: var(--text-caption); color: var(--color-ash);">
+            0,58€ par analyse · 348€/an · un seul rugpull évité rembourse l'abonnement
+          </div>
         </div>
 
       </div>
 
       <div class="pricing__note">
-        <a href="#" class="btn-ghost">Volume, API, intégration ? Parlons-en →</a>
+        <a href="#" class="btn-ghost">Volume custom, API, intégration Discord ? Parlons-en →</a>
       </div>
     </div>
   </section>
@@ -698,11 +705,15 @@
        ============================================================ -->
   <section class="cta-final section section--abyss" id="cta-final">
     <div class="container">
-      <h2 class="cta-final__title">Le prochain rugpull n'attendra pas<br>que tu aies <span class="text-blood">fini de réfléchir.</span></h2>
-      <p class="cta-final__sub">Une adresse. Un verdict. Maintenant.</p>
-      <a href="#" class="btn-primary btn-primary--lg">Lancer une analyse</a>
+      <h2 class="cta-final__title">Ton prochain token est peut-être<br>un <span class="text-blood">piège.</span></h2>
+      <p class="cta-final__sub">Colle l'adresse. Le rapport tombe en 3 minutes.</p>
+      <div class="cta-final__input">
+        <span class="cta-final__input-prompt">$</span>
+        <span class="cta-final__input-placeholder">Adresse du contrat (SOL, BSC, Base, ETH)</span>
+      </div>
+      <a href="#" class="btn-primary btn-primary--lg">Scanner maintenant</a>
       <div class="cta-final__secondary">
-        <a href="#" class="btn-ghost">Voir un rapport exemple d'abord →</a>
+        <span style="font-size: var(--text-caption); color: var(--color-ash);">Gratuit · 3 scans/mois · aucune carte requise</span>
       </div>
     </div>
   </section>
@@ -719,7 +730,7 @@
         </div>
         <div class="footer__col">
           <div class="footer__col-title">Produit</div>
-          <a href="#cta-final" class="footer__link">Analyser un projet</a>
+          <a href="#cta-final" class="footer__link">Scanner un token</a>
           <a href="#proof" class="footer__link">Rapport exemple</a>
           <a href="#pricing" class="footer__link">Pricing</a>
         </div>

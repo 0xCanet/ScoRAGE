@@ -841,6 +841,44 @@ h4 {
   justify-content: center;
 }
 
+/* Hero terminal input hint */
+.hero__input-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-graphite);
+  border: 1px solid var(--color-steel);
+  border-radius: 2px;
+  margin-bottom: var(--space-8);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--text-mono);
+  color: var(--color-ash);
+}
+
+.hero__input-prompt {
+  color: var(--color-blood);
+  font-weight: 700;
+}
+
+.hero__input-text {
+  color: var(--color-bone);
+}
+
+.hero__input-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background: var(--color-blood);
+  animation: blink 1s step-end infinite;
+  vertical-align: middle;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 /* ============================================================
    12. PROOF SECTION (Rapport Live)
    ============================================================ */
@@ -990,13 +1028,72 @@ h4 {
   margin-bottom: var(--space-4);
 }
 
+.mockup-verdict-header {
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-steel);
+}
+
+.mockup-verdict-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-blood);
+}
+
 .mockup-analysis {
   font-family: 'Inter', sans-serif;
   font-size: var(--text-body-sm);
   color: var(--color-ash);
   line-height: 1.6;
   padding: var(--space-4);
-  border-left: 2px solid var(--color-steel);
+  border-left: 2px solid var(--color-blood);
+  background: rgba(255, 34, 59, 0.03);
+}
+
+.mockup-analysis code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--color-blood);
+  background: rgba(255, 34, 59, 0.08);
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+
+/* Format toggle (Web / PDF) */
+.proof__format-toggle {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-8);
+}
+
+.proof__format-tab {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-steel);
+  border-radius: 2px;
+  color: var(--color-ash);
+  cursor: pointer;
+  transition: all 180ms ease-out;
+  user-select: none;
+}
+
+.proof__format-tab:hover {
+  border-color: rgba(255, 34, 59, 0.3);
+  color: var(--color-bone);
+}
+
+.proof__format-tab--active {
+  background: var(--color-blood-ghost);
+  color: var(--color-blood);
+  border-color: rgba(255, 34, 59, 0.3);
 }
 
 /* ============================================================
@@ -1528,6 +1625,33 @@ h4 {
 
 .cta-final__secondary {
   margin-top: var(--space-4);
+}
+
+.cta-final__input {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-graphite);
+  border: 1px solid var(--color-steel);
+  border-radius: 2px;
+  margin-bottom: var(--space-8);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--text-mono);
+  transition: border-color 200ms ease;
+}
+
+.cta-final__input:hover {
+  border-color: rgba(255, 34, 59, 0.3);
+}
+
+.cta-final__input-prompt {
+  color: var(--color-blood);
+  font-weight: 700;
+}
+
+.cta-final__input-placeholder {
+  color: var(--color-ash);
 }
 
 /* ============================================================
