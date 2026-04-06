@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScoRAGE — Analyse de risque crypto avant investissement</title>
+  <meta name="description" content="Analyse un projet crypto avant d'investir. Rapport de risque clair en 2 à 5 minutes. Due diligence anti-scam pour Solana, BSC, Base, Ethereum.">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='2' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='%23ff223b' font-family='monospace' font-size='20' font-weight='700'%3ES%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <!-- Noise overlay (page-wide) -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- ============================================================
+       NAVBAR
+       ============================================================ -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <a href="#" class="navbar__logo">Sco<span>RAGE</span></a>
+      <div class="navbar__links" id="nav-links">
+        <a href="#process" class="navbar__link">Comment ça marche</a>
+        <a href="#fires" class="navbar__link">F.I.R.E.S.</a>
+        <a href="#pricing" class="navbar__link">Pricing</a>
+        <a href="#faq" class="navbar__link">FAQ</a>
+        <div class="navbar__cta">
+          <a href="#cta-final" class="btn-primary btn-primary--sm">Analyser un projet</a>
+        </div>
+      </div>
+      <button class="navbar__mobile-toggle" id="mobile-toggle" aria-label="Ouvrir le menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       SECTION 1 — HERO
+       ============================================================ -->
+  <section class="hero section--void" id="hero">
+    <div class="container">
+      <div class="hero__inner">
+
+        <!-- Text column -->
+        <div class="hero__text">
+          <p class="hero__pretitle">Due diligence crypto · Anti-scam</p>
+          <h1 class="hero__title">
+            Analyse un projet crypto <span class="text-blood">avant d'investir.</span>
+          </h1>
+          <p class="hero__subtitle">
+            Obtiens un rapport de risque clair en 2 à 5 minutes. Pas un avis. Pas un thread. Un diagnostic structuré basé sur le framework F.I.R.E.S.
+          </p>
+          <div class="hero__chains">
+            <span class="hero__chain">
+              <svg class="hero__chain-icon" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M15.5 8.5L12 17l-3.5-8.5L12 11l3.5-2.5z" fill="currentColor" opacity="0.6"/></svg>
+              SOL
+            </span>
+            <span class="hero__chain">
+              <svg class="hero__chain-icon" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 6l4 3-4 3-4-3z M12 12l4 3-4 3-4-3z" fill="currentColor" opacity="0.6"/></svg>
+              BSC
+            </span>
+            <span class="hero__chain">
+              <svg class="hero__chain-icon" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" fill="currentColor" opacity="0.6"/></svg>
+              BASE
+            </span>
+            <span class="hero__chain">
+              <svg class="hero__chain-icon" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/><polygon points="12,4 18,13 12,16 6,13" fill="currentColor" opacity="0.6"/></svg>
+              ETH
+            </span>
+          </div>
+          <div class="btn-group">
+            <a href="#cta-final" class="btn-primary">Analyser un projet</a>
+            <a href="#proof" class="btn-secondary">Voir un exemple de rapport</a>
+          </div>
+        </div>
+
+        <!-- Score card column -->
+        <div class="hero__score-card">
+          <div class="card-score">
+            <div class="scan-line" aria-hidden="true"></div>
+            <div class="card-score__label">SCORE DE RISQUE</div>
+            <div class="card-score__value card-score__value--high">27</div>
+            <div class="card-score__label">/ 100</div>
+            <div style="margin-top: var(--space-4);">
+              <span class="badge-verdict badge-verdict--high">⚠ HIGH RISK</span>
+            </div>
+            <div class="hero__flags">
+              <span class="badge-flag"><span class="badge-flag__icon">✕</span> Liquidité verrouillée 0%</span>
+              <span class="badge-flag"><span class="badge-flag__icon">⚠</span> 82% supply in 1 wallet</span>
+              <span class="badge-flag"><span class="badge-flag__icon">✕</span> Aucun audit</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2 — PREUVE PRODUIT (Rapport Live)
+       ============================================================ -->
+  <section class="proof section section--abyss" id="proof">
+    <div class="container">
+      <div class="section__header section__header--center">
+        <h2>Un rapport complet. <span class="text-blood">Pas un avis.</span></h2>
+        <p>Chaque analyse génère un rapport Web interactif et un export PDF. Voici à quoi ça ressemble.</p>
+      </div>
+
+      <div class="mockup-frame">
+        <div class="mockup-frame__bar">
+          <div class="mockup-frame__dot mockup-frame__dot--red"></div>
+          <div class="mockup-frame__dot mockup-frame__dot--gray"></div>
+          <div class="mockup-frame__dot mockup-frame__dot--gray"></div>
+          <span class="mockup-frame__title">scorage.io/report/0x8f3c...</span>
+        </div>
+        <div class="mockup-frame__content">
+
+          <!-- Mockup header -->
+          <div class="mockup-header">
+            <div>
+              <div class="mockup-header__project">MoonDoge Finance</div>
+              <div class="mockup-header__meta">
+                Contract: 0x8f3c...a91d<br>
+                Chain: BSC · BEP-20<br>
+                Analysé le 06 avr. 2026
+              </div>
+            </div>
+            <div style="text-align: right;">
+              <span class="badge-verdict badge-verdict--critical">⚠ CRITICAL RISK</span>
+            </div>
+          </div>
+
+          <!-- Score + F.I.R.E.S. grid -->
+          <div class="mockup-scores">
+            <div class="mockup-score-main">
+              <div class="mockup-score-main__value card-score__value--critical">12</div>
+              <div class="card-score__label">SCORE GLOBAL / 100</div>
+              <span class="badge-verdict badge-verdict--critical" style="margin-top: var(--space-3);">CRITICAL RISK</span>
+            </div>
+            <div class="mockup-fires-grid">
+              <div class="mockup-fires-row">
+                <span class="mockup-fires-row__letter">F</span>
+                <span class="mockup-fires-row__name">Financials</span>
+                <span class="mockup-fires-row__score card-score__value--critical">8</span>
+              </div>
+              <div class="mockup-fires-row">
+                <span class="mockup-fires-row__letter">I</span>
+                <span class="mockup-fires-row__name">Integrity</span>
+                <span class="mockup-fires-row__score card-score__value--critical">5</span>
+              </div>
+              <div class="mockup-fires-row">
+                <span class="mockup-fires-row__letter">R</span>
+                <span class="mockup-fires-row__name">Reputation</span>
+                <span class="mockup-fires-row__score card-score__value--high">18</span>
+              </div>
+              <div class="mockup-fires-row">
+                <span class="mockup-fires-row__letter">E</span>
+                <span class="mockup-fires-row__name">Ecosystem</span>
+                <span class="mockup-fires-row__score card-score__value--critical">10</span>
+              </div>
+              <div class="mockup-fires-row">
+                <span class="mockup-fires-row__letter">S</span>
+                <span class="mockup-fires-row__name">Security</span>
+                <span class="mockup-fires-row__score card-score__value--high">19</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Red flags & Safe points -->
+          <div class="mockup-flags">
+            <span class="badge-flag"><span class="badge-flag__icon">✕</span> Honeypot pattern détecté</span>
+            <span class="badge-flag"><span class="badge-flag__icon">✕</span> Liquidité non verrouillée</span>
+            <span class="badge-flag"><span class="badge-flag__icon">⚠</span> Équipe 100% anonyme</span>
+            <span class="badge-flag"><span class="badge-flag__icon">✕</span> Mint function active</span>
+            <span class="badge-safe"><span>✓</span> Contract vérifié BSCScan</span>
+            <span class="badge-safe"><span>✓</span> Pas de proxy upgradeable</span>
+          </div>
+
+          <!-- Analysis extract -->
+          <div class="mockup-analysis">
+            Le contrat MoonDoge Finance présente des signaux critiques incompatibles avec un investissement. La fonction mint() permet la création illimitée de tokens. 92% du supply est concentré dans un seul wallet. Aucune liquidité verrouillée. Pattern de honeypot identifié : buy tax 0%, sell tax 99%.
+          </div>
+
+        </div>
+      </div>
+
+      <div class="btn-group" style="justify-content: center; margin-top: var(--space-8);">
+        <a href="#cta-final" class="btn-primary">Lancer une analyse</a>
+        <a href="#" class="btn-ghost">Télécharger un rapport PDF exemple</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 3 — COMMENT ÇA MARCHE
+       ============================================================ -->
+  <section class="process section section--void" id="process">
+    <div class="container">
+      <div class="section__header section__header--center">
+        <h2>Comment ça marche</h2>
+        <p>Colle une adresse. Reçois un verdict. Prends ta décision.</p>
+      </div>
+
+      <div class="process__grid">
+        <!-- Step 1 -->
+        <div class="process__step">
+          <div class="process__number">01</div>
+          <div class="card-feature process__card">
+            <div class="card-feature__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="4 17 10 11 4 5"></polyline>
+                <line x1="12" y1="19" x2="20" y2="19"></line>
+              </svg>
+            </div>
+            <div class="card-feature__title">Colle l'adresse du contrat</div>
+            <div class="card-feature__desc">Solana, BSC, Base, Ethereum. Un seul champ. Copie-colle l'adresse du token que tu veux analyser.</div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="process__step">
+          <div class="process__number">02</div>
+          <div class="card-feature process__card">
+            <div class="card-feature__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="2" x2="12" y2="6"></line>
+                <line x1="12" y1="18" x2="12" y2="22"></line>
+                <line x1="2" y1="12" x2="6" y2="12"></line>
+                <line x1="18" y1="12" x2="22" y2="12"></line>
+              </svg>
+            </div>
+            <div class="card-feature__title">L'analyse se lance</div>
+            <div class="card-feature__desc">ScoRAGE crawl les données on-chain, off-chain et sociales. Scoring F.I.R.E.S. sur 5 dimensions. 2 à 5 minutes.</div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="process__step">
+          <div class="process__number">03</div>
+          <div class="card-feature process__card">
+            <div class="card-feature__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <path d="M9 15l2 2 4-4"></path>
+              </svg>
+            </div>
+            <div class="card-feature__title">Reçois ton rapport</div>
+            <div class="card-feature__desc">Rapport Web interactif + export PDF. Score global, sous-scores F.I.R.E.S., red flags, points rassurants, verdict.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 4 — FRAMEWORK F.I.R.E.S.
+       ============================================================ -->
+  <section class="fires section section--abyss" id="fires">
+    <div class="container">
+      <div class="section__header">
+        <h2>Framework <span class="text-blood">F.I.R.E.S.</span></h2>
+        <p>5 dimensions d'analyse. 1 score consolidé. 0 bullshit. Chaque projet est évalué sur une grille structurée — pas un algorithme opaque.</p>
+      </div>
+
+      <div class="fires__layout">
+        <!-- Navigation tabs -->
+        <div class="fires__nav" id="fires-nav">
+          <button class="fires__tab is-active" data-fires="financials">
+            <span class="fires__tab-letter">F</span>
+            <span class="fires__tab-name">Financials</span>
+          </button>
+          <button class="fires__tab" data-fires="integrity">
+            <span class="fires__tab-letter">I</span>
+            <span class="fires__tab-name">Integrity</span>
+          </button>
+          <button class="fires__tab" data-fires="reputation">
+            <span class="fires__tab-letter">R</span>
+            <span class="fires__tab-name">Reputation</span>
+          </button>
+          <button class="fires__tab" data-fires="ecosystem">
+            <span class="fires__tab-letter">E</span>
+            <span class="fires__tab-name">Ecosystem</span>
+          </button>
+          <button class="fires__tab" data-fires="security">
+            <span class="fires__tab-letter">S</span>
+            <span class="fires__tab-name">Security</span>
+          </button>
+        </div>
+
+        <!-- Content panels -->
+        <div class="fires__content" id="fires-content">
+
+          <div class="fires__panel is-active" data-fires-panel="financials">
+            <h3 class="fires__panel-title">Financials</h3>
+            <p class="fires__panel-desc">Analyse de la structure financière du token : répartition du supply, liquidité, mécanismes de lock, et concentration des wallets majeurs.</p>
+            <div class="fires__criteria">
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Distribution du supply</span>
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Liquidité pool depth</span>
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Lock / vesting schedule</span>
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Concentration top wallets</span>
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Buy/sell tax analysis</span>
+            </div>
+          </div>
+
+          <div class="fires__panel" data-fires-panel="integrity">
+            <h3 class="fires__panel-title">Integrity</h3>
+            <p class="fires__panel-desc">Vérification de la cohérence entre les promesses du projet et sa réalité technique. Le whitepaper dit-il la vérité ? Le contrat fait-il ce qu'il prétend ?</p>
+            <div class="fires__criteria">
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Cohérence whitepaper / contrat</span>
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Audit smart contract</span>
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Transparence de l'équipe</span>
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Roadmap vs. livraisons</span>
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Code source ouvert</span>
+            </div>
+          </div>
+
+          <div class="fires__panel" data-fires-panel="reputation">
+            <h3 class="fires__panel-title">Reputation</h3>
+            <p class="fires__panel-desc">Historique des fondateurs et du projet. Liens avec des scams passés, track record vérifiable, sentiment communautaire réel vs. artificiel.</p>
+            <div class="fires__criteria">
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Historique fondateurs</span>
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Liens projets scam précédents</span>
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Sentiment social réel</span>
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Bot activity detection</span>
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Community engagement</span>
+            </div>
+          </div>
+
+          <div class="fires__panel" data-fires-panel="ecosystem">
+            <h3 class="fires__panel-title">Ecosystem</h3>
+            <p class="fires__panel-desc">La santé de l'écosystème autour du projet. TVL, intégrations DeFi réelles, activité développeur, et partenariats vérifiables.</p>
+            <div class="fires__criteria">
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> TVL & volume réel</span>
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Intégrations DeFi</span>
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Activité développeurs</span>
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Partenariats vérifiables</span>
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Présence multi-chain</span>
+            </div>
+          </div>
+
+          <div class="fires__panel" data-fires-panel="security">
+            <h3 class="fires__panel-title">Security</h3>
+            <p class="fires__panel-desc">Analyse technique du smart contract. Détection de vulnérabilités, patterns de rugpull, honeypot, et fonctions dangereuses.</p>
+            <div class="fires__criteria">
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Honeypot detection</span>
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Rugpull patterns</span>
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Mint / pause functions</span>
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Proxy upgradeable</span>
+              <span class="fires__criterion"><span class="fires__criterion-icon">◆</span> Owner privileges</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Score bar example -->
+      <div class="fires__bar">
+        <div class="fires__bar-segment" style="background: var(--color-blood); opacity: 0.8;"></div>
+        <div class="fires__bar-segment" style="background: var(--color-blood); opacity: 0.5;"></div>
+        <div class="fires__bar-segment" style="background: var(--color-signal-yellow);"></div>
+        <div class="fires__bar-segment" style="background: var(--color-signal-green);"></div>
+        <div class="fires__bar-segment" style="background: var(--color-blood); opacity: 0.7;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 5 — POURQUOI SCORAGE
+       ============================================================ -->
+  <section class="why section section--void" id="why">
+    <div class="container">
+      <div class="section__header">
+        <h2>Tu investis avant <span class="text-blood">de vérifier.</span></h2>
+        <p>C'est normal. Le marché va vite. Mais chaque raccourci coûte cher.</p>
+      </div>
+
+      <div class="why__grid">
+
+        <div class="card card--danger">
+          <h4 class="why__pain">"DYOR" ne veut rien dire</h4>
+          <p class="why__reality">Personne n'a le temps de lire un whitepaper de 40 pages, vérifier un contrat sur Etherscan, et stalker les devs sur LinkedIn.</p>
+          <div class="why__solution">
+            <span class="why__solution-arrow">→</span>
+            <span>Un rapport structuré en 2–5 min, lisible sans compétence technique.</span>
+          </div>
+        </div>
+
+        <div class="card card--danger">
+          <h4 class="why__pain">Les red flags sont invisibles</h4>
+          <p class="why__reality">Honeypots, wallets concentrés, devs anonymes recyclés d'un scam précédent — tout est caché sous une couche de marketing.</p>
+          <div class="why__solution">
+            <span class="why__solution-arrow">→</span>
+            <span>Détection automatique + badges visuels. Chaque red flag est nommé et expliqué.</span>
+          </div>
+        </div>
+
+        <div class="card card--danger">
+          <h4 class="why__pain">Un score sans contexte est inutile</h4>
+          <p class="why__reality">Les outils qui donnent un chiffre 0-100 sans explication ne t'aident pas à décider. Tu ne sais pas ce qui a été vérifié.</p>
+          <div class="why__solution">
+            <span class="why__solution-arrow">→</span>
+            <span>F.I.R.E.S. décompose le score en 5 dimensions claires. Tu sais exactement ce qui pose problème.</span>
+          </div>
+        </div>
+
+        <div class="card card--danger">
+          <h4 class="why__pain">Pas le temps d'auditer chaque coin</h4>
+          <p class="why__reality">100+ tokens lancés par jour. Impossible de tout couvrir manuellement. Tu choisis entre vitesse et sécurité.</p>
+          <div class="why__solution">
+            <span class="why__solution-arrow">→</span>
+            <span>Filtrage rapide : go, no-go, ou surveiller. Décision en 5 minutes.</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 6 — USE CASES
+       ============================================================ -->
+  <section class="usecases section section--abyss" id="usecases">
+    <div class="container">
+      <div class="section__header section__header--center">
+        <h2>Pour qui c'est fait</h2>
+        <p>Solo investor, modo Discord, alpha caller — ScoRAGE s'adapte à tes besoins.</p>
+      </div>
+
+      <div class="usecases__grid">
+
+        <div class="card">
+          <div class="usecase__profile">Retail Investor</div>
+          <p class="usecase__scenario">Un token buzz sur Twitter. Avant d'ape-in, tu colles l'adresse. Score : HIGH RISK. Tu passes. Tu viens d'éviter un honeypot.</p>
+          <div class="usecase__value">
+            <span class="badge-safe"><span>✓</span> Éviter les pièges en 2 min</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="usecase__profile">Community Manager</div>
+          <p class="usecase__scenario">Un membre shill un token dans ton Discord. Tu lances une analyse et tu postes le rapport directement dans le canal. Fin du débat.</p>
+          <div class="usecase__value">
+            <span class="badge-safe"><span>✓</span> Protéger ta communauté</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="usecase__profile">Alpha Caller / KOL</div>
+          <p class="usecase__scenario">Avant de partager un call, tu vérifies. Tu ne veux pas être le prochain "scam promoter". ScoRAGE te couvre.</p>
+          <div class="usecase__value">
+            <span class="badge-safe"><span>✓</span> Protéger ta crédibilité</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="usecase__profile">Opérateur Crypto</div>
+          <p class="usecase__scenario">Tu évalues des projets pour listing, partenariat ou incubation. ScoRAGE est ton premier filtre de due diligence.</p>
+          <div class="usecase__value">
+            <span class="badge-safe"><span>✓</span> Due diligence rapide</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 7 — CHAÎNES SUPPORTÉES
+       ============================================================ -->
+  <section class="chains section section--void" id="chains">
+    <div class="container">
+      <div class="section__header section__header--center">
+        <h2>4 chaînes. <span class="text-blood">Là où les scams vivent.</span></h2>
+        <p>V1 couvre les écosystèmes avec le plus haut volume de tokens à risque.</p>
+      </div>
+
+      <div class="chains__grid">
+
+        <div class="card card--compact chain-card">
+          <div class="chain-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M15.5 8.5L12 17l-3.5-8.5L12 11l3.5-2.5z" fill="currentColor" stroke="none" opacity="0.8"/>
+            </svg>
+          </div>
+          <div class="chain-card__name">Solana</div>
+          <div class="chain-card__desc">Memecoins, pump.fun, vitesse de deployment extrême</div>
+        </div>
+
+        <div class="card card--compact chain-card">
+          <div class="chain-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6l4 3-4 3-4-3zM12 12l4 3-4 3-4-3z" fill="currentColor" stroke="none" opacity="0.8"/>
+            </svg>
+          </div>
+          <div class="chain-card__name">BSC</div>
+          <div class="chain-card__desc">Volume massif de low-caps, honeypots fréquents</div>
+        </div>
+
+        <div class="card card--compact chain-card">
+          <div class="chain-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/>
+              <circle cx="12" cy="12" r="4" fill="currentColor" stroke="none" opacity="0.8"/>
+            </svg>
+          </div>
+          <div class="chain-card__name">Base</div>
+          <div class="chain-card__desc">Écosystème L2 en croissance, nouveaux tokens quotidiens</div>
+        </div>
+
+        <div class="card card--compact chain-card">
+          <div class="chain-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/>
+              <polygon points="12,4 18,13 12,16 6,13" fill="currentColor" stroke="none" opacity="0.8"/>
+            </svg>
+          </div>
+          <div class="chain-card__name">Ethereum</div>
+          <div class="chain-card__desc">Référence DeFi, contracts complexes, écosystème majeur</div>
+        </div>
+
+      </div>
+
+      <div class="chains__more">
+        <a href="#" class="btn-ghost">D'autres chaînes seront supportées. Soumets une requête →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 8 — PRICING
+       ============================================================ -->
+  <section class="pricing section section--abyss" id="pricing">
+    <div class="container">
+      <div class="section__header section__header--center">
+        <h2>Pricing</h2>
+        <p>Essaie avant. Paie quand c'est utile.</p>
+      </div>
+
+      <div class="pricing__grid">
+
+        <!-- Free tier -->
+        <div class="card pricing-card">
+          <div class="pricing-card__name">Découverte</div>
+          <div class="pricing-card__price">Gratuit</div>
+          <div class="pricing-card__period">Pour commencer</div>
+          <div class="pricing-card__features">
+            <div class="pricing-card__feature">
+              <span class="pricing-card__feature-check">✓</span>
+              <span>3 analyses par mois</span>
+            </div>
+            <div class="pricing-card__feature">
+              <span class="pricing-card__feature-check">✓</span>
+              <span>Rapport Web complet</span>
+            </div>
+            <div class="pricing-card__feature">
+              <span class="pricing-card__feature-check">✓</span>
+              <span>Score + verdict + red flags</span>
+            </div>
+            <div class="pricing-card__feature">
+              <span class="pricing-card__feature-check" style="color: var(--color-ash);">—</span>
+              <span style="color: var(--color-ash);">Export PDF</span>
+            </div>
+            <div class="pricing-card__feature">
+              <span class="pricing-card__feature-check" style="color: var(--color-ash);">—</span>
+              <span style="color: var(--color-ash);">Historique des analyses</span>
+            </div>
+          </div>
+          <div class="pricing-card__cta">
+            <a href="#cta-final" class="btn-secondary" style="width: 100%; justify-content: center;">Commencer</a>
+          </div>
+        </div>
+
+        <!-- Pro tier (featured) -->
+        <div class="card pricing-card pricing-card--featured card--highlight">
+          <div class="pricing-card__badge">
+            <span class="badge-recommend">RECOMMANDÉ</span>
+          </div>
+          <div class="pricing-card__name">Pro</div>
+          <div class="pricing-card__price">19€<span style="font-size: var(--text-body); font-weight: 400; color: var(--color-ash);">/mois</span></div>
+          <div class="pricing-card__period">Pour les investisseurs actifs</div>
+          <div class="pricing-card__features">
+            <div class="pricing-card__feature">
+              <span class="pricing-card__feature-check">✓</span>
+              <span>30 analyses par mois</span>
+            </div>
+            <div class="pricing-card__feature">
+              <span class="pricing-card__feature-check">✓</span>
+              <span>Rapport Web complet</span>
+            </div>
+            <div class="pricing-card__feature">
+              <span class="pricing-card__feature-check">✓</span>
+              <span>Export PDF</span>
+            </div>
+            <div class="pricing-card__feature">
+              <span class="pricing-card__feature-check">✓</span>
+              <span>Historique des analyses</span>
+            </div>
+            <div class="pricing-card__feature">
+              <span class="pricing-card__feature-check">✓</span>
+              <span>Alertes score critique</span>
+            </div>
+          </div>
+          <div class="pricing-card__cta">
+            <a href="#cta-final" class="btn-primary" style="width: 100%; justify-content: center;">Choisir Pro</a>
+          </div>
+        </div>
+
+        <!-- Team tier -->
+        <div class="card pricing-card">
+          <div class="pricing-card__name">Team / API</div>
+          <div class="pricing-card__price">Sur mesure</div>
+          <div class="pricing-card__period">Communautés & opérateurs</div>
+          <div class="pricing-card__features">
+            <div class="pricing-card__feature">
+              <span class="pricing-card__feature-check">✓</span>
+              <span>Volume d'analyses illimité</span>
+            </div>
+            <div class="pricing-card__feature">
+              <span class="pricing-card__feature-check">✓</span>
+              <span>Accès API</span>
+            </div>
+            <div class="pricing-card__feature">
+              <span class="pricing-card__feature-check">✓</span>
+              <span>Rapports partageables</span>
+            </div>
+            <div class="pricing-card__feature">
+              <span class="pricing-card__feature-check">✓</span>
+              <span>Support prioritaire</span>
+            </div>
+            <div class="pricing-card__feature">
+              <span class="pricing-card__feature-check">✓</span>
+              <span>Dashboard multi-user</span>
+            </div>
+          </div>
+          <div class="pricing-card__cta">
+            <a href="#cta-final" class="btn-secondary" style="width: 100%; justify-content: center;">Nous contacter</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pricing__note">
+        <a href="#" class="btn-ghost">Besoin d'un volume custom ? Contacte-nous →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 9 — FAQ
+       ============================================================ -->
+  <section class="faq section section--void" id="faq">
+    <div class="container">
+      <div class="section__header section__header--center">
+        <h2>Questions fréquentes</h2>
+      </div>
+
+      <div class="faq__list" id="faq-list">
+
+        <div class="faq-item">
+          <div class="faq-item__question">
+            <span>Qu'est-ce que ScoRAGE analyse exactement ?</span>
+            <span class="faq-item__toggle">+</span>
+          </div>
+          <div class="faq-item__answer">
+            ScoRAGE analyse les données on-chain (smart contract, distribution du supply, liquidité, fonctions dangereuses), off-chain (whitepaper, équipe, audit) et sociales (sentiment communautaire, historique des fondateurs) pour chaque token. Le tout est synthétisé via le framework F.I.R.E.S. en 5 dimensions : Financials, Integrity, Reputation, Ecosystem, Security.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-item__question">
+            <span>Combien de temps prend une analyse ?</span>
+            <span class="faq-item__toggle">+</span>
+          </div>
+          <div class="faq-item__answer">
+            Entre 2 et 5 minutes selon la complexité du contrat et la quantité de données disponibles. Tu reçois le rapport dès que l'analyse est terminée.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-item__question">
+            <span>Le rapport est-il un audit formel ?</span>
+            <span class="faq-item__toggle">+</span>
+          </div>
+          <div class="faq-item__answer">
+            Non. ScoRAGE n'est pas un cabinet d'audit. C'est un outil de filtrage rapide et de due diligence automatisée. Le rapport t'aide à prendre une décision éclairée : ignorer, surveiller, spéculer petit, ou approfondir manuellement. Il ne remplace pas un audit formel pour des investissements majeurs.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-item__question">
+            <span>Quelles blockchains sont supportées ?</span>
+            <span class="faq-item__toggle">+</span>
+          </div>
+          <div class="faq-item__answer">
+            La V1 supporte Solana, BSC (BNB Chain), Base et Ethereum. D'autres chaînes seront ajoutées en fonction de la demande.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-item__question">
+            <span>C'est quoi le framework F.I.R.E.S. ?</span>
+            <span class="faq-item__toggle">+</span>
+          </div>
+          <div class="faq-item__answer">
+            F.I.R.E.S. est notre grille d'analyse structurée en 5 dimensions : Financials (structure financière), Integrity (cohérence technique), Reputation (historique et confiance), Ecosystem (santé de l'écosystème), Security (vulnérabilités du contrat). Chaque dimension produit un sous-score, et l'ensemble donne le score global de risque.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-item__question">
+            <span>Le score est-il fiable à 100% ?</span>
+            <span class="faq-item__toggle">+</span>
+          </div>
+          <div class="faq-item__answer">
+            Non, et un outil qui prétendrait le contraire mentirait. ScoRAGE détecte des patterns de risque connus et analyse les données disponibles publiquement. Un score bas ne garantit pas un scam, et un score élevé ne garantit pas la sécurité. C'est un outil d'aide à la décision, pas une boule de cristal.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-item__question">
+            <span>Je peux l'utiliser pour ma communauté Discord ?</span>
+            <span class="faq-item__toggle">+</span>
+          </div>
+          <div class="faq-item__answer">
+            Oui. Le plan Team permet de partager les rapports et d'utiliser ScoRAGE comme outil de modération. Un membre shill un token ? Lance une analyse et poste le rapport dans le canal. L'intégration bot Discord est prévue pour les prochaines versions.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-item__question">
+            <span>Il y a une API ?</span>
+            <span class="faq-item__toggle">+</span>
+          </div>
+          <div class="faq-item__answer">
+            L'API est disponible avec le plan Team / API sur mesure. Elle permet d'intégrer ScoRAGE dans tes propres outils, bots, ou dashboards. Contacte-nous pour discuter de ton cas d'usage.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-item__question">
+            <span>C'est gratuit ?</span>
+            <span class="faq-item__toggle">+</span>
+          </div>
+          <div class="faq-item__answer">
+            Le plan Découverte est gratuit avec 3 analyses par mois. Pour un usage régulier, le plan Pro à 19€/mois offre 30 analyses, l'export PDF et l'historique. Pas d'engagement, annulable à tout moment.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 10 — CTA FINAL
+       ============================================================ -->
+  <section class="cta-final section section--abyss" id="cta-final">
+    <div class="container">
+      <h2 class="cta-final__title">Ton prochain investissement crypto<br>mérite <span class="text-blood">5 minutes</span> de vérification.</h2>
+      <p class="cta-final__sub">Colle une adresse. Reçois un verdict. Prends ta décision.</p>
+      <a href="#" class="btn-primary btn-primary--lg">Analyser un projet</a>
+      <div class="cta-final__secondary">
+        <a href="#" class="btn-ghost">Réserver une démo →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="#" class="navbar__logo">Sco<span>RAGE</span></a>
+          <p class="footer__brand-desc">Due diligence crypto automatisée. Rapports de risque pour investisseurs qui veulent décider vite et bien.</p>
+        </div>
+        <div class="footer__col">
+          <div class="footer__col-title">Produit</div>
+          <a href="#cta-final" class="footer__link">Analyser un projet</a>
+          <a href="#proof" class="footer__link">Rapport exemple</a>
+          <a href="#pricing" class="footer__link">Pricing</a>
+        </div>
+        <div class="footer__col">
+          <div class="footer__col-title">Ressources</div>
+          <a href="#" class="footer__link">Documentation</a>
+          <a href="#" class="footer__link">API <span class="text-ash" style="font-size: var(--text-micro);">(coming soon)</span></a>
+          <a href="#" class="footer__link">Changelog</a>
+        </div>
+        <div class="footer__col">
+          <div class="footer__col-title">Social</div>
+          <a href="#" class="footer__link">Twitter / X</a>
+          <a href="#" class="footer__link">Discord</a>
+          <a href="#" class="footer__link">GitHub</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span class="footer__copyright">© 2026 ScoRAGE. Tous droits réservés.</span>
+        <span class="footer__tagline">Due diligence crypto. Anti-bullshit.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="index.js"></script>
+</body>
+</html>
