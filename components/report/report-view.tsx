@@ -8,6 +8,8 @@ import { getReportStatusMeta, getVerdictBadgeTone, getVerdictMeta } from '@/lib/
 import { formatReportDate, reportProjectLabel, shortAddress } from '@/lib/reports/summary';
 
 import { ReportActions } from './report-actions';
+import { SignalList } from './signal-list';
+import { ScoreBar } from '@/components/ui/score-bar';
 
 const fireCategories = ['financials', 'integrity', 'reputation', 'ecosystem', 'security'] as const;
 
@@ -93,44 +95,56 @@ export function ReportView({ bundle }: { bundle: ReportBundle }) {
         <article className="card report-section-card">
           <div className="report-section-card__header">
             <div>
-              <p className="eyebrow">F.I.R.E.S.</p>
-              <h2>Breakdown</h2>
+              <p className="eyebrow">Scores</p>
+              <h2>F.I.R.E.S.</h2>
             </div>
-            <p className="report-section-card__copy">Each score contributes to the combined verdict.</p>
           </div>
           <div className="report-fires-list">
-            {fireCategories.map((key) => (
-              <div key={key} className="report-fires-row">
-                <span className="report-fires-row__letter">{key.slice(0, 1).toUpperCase()}</span>
-                <div>
-                  <strong>{scoreCategoryLabels[key]}</strong>
-                  <p>{scoreVerdictLabelMap[scoreToVerdict(report.score[key])]}</p>
+            {fireCategories.map((key) => {
+              const score = report.score[key];
+              const verdict = scoreToVerdict(score);
+              const tone = verdict === 'critical' ? 'critical' : verdict === 'high' ? 'critical' : verdict === 'moderate' ? 'warning' : 'safe';
+              
+              return (
+                <div key={key} className="report-fires-row">
+                  <div className="report-fires-row__header">
+                    <span className="report-fires-row__letter">{key.slice(0, 1).toUpperCase()}</span>
+                    <div>
+                      <strong>{scoreCategoryLabels[key]}</strong>
+                      <p>{scoreVerdictLabelMap[verdict]}</p>
+                    </div>
+                    <span className="report-fires-row__score">{score}</span>
+                  </div>
+                  <ScoreBar score={score} tone={tone} />
                 </div>
-                <span className="report-fires-row__score">{report.score[key]}</span>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </article>
 
         <article className="card report-section-card report-section-card--stacked">
           <div>
-            <p className="eyebrow">What stands out</p>
-            <h2>Signal mix</h2>
+            <p className="eyebrow">Points clés</p>
+            <h2>Signaux détectés</h2>
           </div>
           <div className="report-signal-grid">
             <div className="report-signal-card report-signal-card--critical">
               <p className="report-signal-card__label">Red flags</p>
               <strong>{redFlagCount}</strong>
-              <ul className="stack-list stack-list--tight">
-                {report.redFlags.length > 0 ? report.redFlags.map((item) => <li key={item}>{item}</li>) : <li>No severe red flags detected in this pass.</li>}
-              </ul>
+              <SignalList 
+                items={report.redFlags} 
+                type="critical" 
+                emptyMessage="Aucun red flag identifié." 
+              />
             </div>
             <div className="report-signal-card report-signal-card--safe">
               <p className="report-signal-card__label">Positives</p>
               <strong>{positiveCount}</strong>
-              <ul className="stack-list stack-list--tight">
-                {report.positives.length > 0 ? report.positives.map((item) => <li key={item}>{item}</li>) : <li>No strong positives captured yet.</li>}
-              </ul>
+              <SignalList 
+                items={report.positives} 
+                type="positive" 
+                emptyMessage="Aucun signal positif identifié." 
+              />
             </div>
           </div>
         </article>
@@ -139,10 +153,9 @@ export function ReportView({ bundle }: { bundle: ReportBundle }) {
       <section className="card report-section-card">
         <div className="report-section-card__header">
           <div>
-            <p className="eyebrow">Evidence</p>
-            <h2>Detail cards</h2>
+            <p className="eyebrow">Analyse approfondie</p>
+            <h2>Evidence</h2>
           </div>
-          <p className="report-section-card__copy">Evidence is grouped as compact, high-contrast cards for fast review.</p>
         </div>
 
         <div className="report-evidence-grid">
@@ -174,7 +187,7 @@ export function ReportView({ bundle }: { bundle: ReportBundle }) {
 
       <section className="report-grid report-grid--meta">
         <article className="card report-section-card">
-          <p className="eyebrow">Metadata</p>
+          <p className="eyebrow">Métadonnées</p>
           <div className="report-meta-list">
             <div>
               <span>Report ID</span>
@@ -196,17 +209,17 @@ export function ReportView({ bundle }: { bundle: ReportBundle }) {
         </article>
 
         <article className="card report-section-card">
-          <p className="eyebrow">Next action</p>
-          <h2>Keep moving</h2>
+          <p className="eyebrow">Actions</p>
+          <h2>Étapes suivantes</h2>
           <p className="report-section-card__copy">
-            Export the PDF for sharing, or trigger a fresh scan if the token moved since this pass.
+            Exportez le rapport pour le partager, ou consultez votre centre de surveillance.
           </p>
           <div className="btn-group report-section-card__actions">
             <a href={`/api/pdf/${report.id}`} className="btn-primary btn-primary--sm" download>
-              Download PDF
+              Télécharger PDF
             </a>
             <Link href="/dashboard" className="btn-secondary btn-secondary--sm">
-              Open dashboard
+              Ouvrir dashboard
             </Link>
           </div>
         </article>

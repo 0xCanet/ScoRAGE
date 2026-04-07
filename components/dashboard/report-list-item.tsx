@@ -11,25 +11,27 @@ export function ReportListItem({ report }: { report: ReportSummary }) {
   const status = getReportStatusMeta(report.status);
 
   return (
-    <article className="dashboard-item">
+    <article className="dashboard-item dashboard-item--compact">
       <div className="dashboard-item__main">
-        <div>
-          <p className="dashboard-item__title">{report.projectName ?? `${chainLabels[report.chain]} contract`}</p>
+        <div className="dashboard-item__info">
+          <div className="dashboard-item__title-group">
+            <span className="dashboard-item__network">{chainLabels[report.chain]}</span>
+            <p className="dashboard-item__title">{report.projectName ?? shortAddress(report.contractAddress)}</p>
+          </div>
           <p className="dashboard-item__meta">
-            {chainLabels[report.chain]} · {shortAddress(report.contractAddress)}
+            {formatReportDay(report.generatedAt ?? report.createdAt)}
           </p>
         </div>
         <div className="dashboard-item__stats">
+          {report.status === 'completed' && (
+            <span className={`badge badge--${getVerdictBadgeTone(report.verdict)}`}>{verdict.badgeLabel}</span>
+          )}
           <span className={`badge badge--${status.tone}`}>{status.label}</span>
-          <span className={`badge badge--${getVerdictBadgeTone(report.verdict)}`}>{verdict.badgeLabel}</span>
-          <strong>{report.score}</strong>
+          <strong className="dashboard-item__score-val">{report.score}</strong>
+          <Link href={`/report/${report.reportId}`} className="btn-secondary btn-secondary--sm">
+            Ouvrir
+          </Link>
         </div>
-      </div>
-      <div className="dashboard-item__footer">
-        <span>{formatReportDay(report.generatedAt ?? report.createdAt)}</span>
-        <Link href={`/report/${report.reportId}`} className="btn-ghost">
-          Open report
-        </Link>
       </div>
     </article>
   );

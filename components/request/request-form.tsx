@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useTransition, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import { Disclosure } from '@/components/ui/disclosure';
 
 import { reportChainOptions, validateReportRequest } from '@/lib/validation/report-request';
 
@@ -113,9 +114,9 @@ export function RequestForm() {
   return (
     <section className="card request-form-card" id="request-form">
       <div className="request-form-card__header">
-        <p className="eyebrow">/request</p>
+        <p className="eyebrow">Nouvelle analyse</p>
         <h2>Créer un report</h2>
-        <p>Un formulaire simple, des validations strictes, et une réponse API orientée production.</p>
+        <p>Renseignez l&apos;adresse du contrat. Le reste est optionnel.</p>
       </div>
 
       <form className="request-form" onSubmit={handleSubmit} noValidate>
@@ -147,50 +148,52 @@ export function RequestForm() {
           {errors.contractAddress ? <em>{errors.contractAddress}</em> : null}
         </label>
 
-        <div className="request-form__grid">
-          <label className="request-field">
-            <span>Project name</span>
-            <input value={form.projectName} onChange={(event) => updateField('projectName', event.target.value)} placeholder="Optionnel" />
-            {errors.projectName ? <em>{errors.projectName}</em> : null}
-          </label>
+        <Disclosure title="Informations complémentaires">
+          <div className="request-form__grid">
+            <label className="request-field">
+              <span>Project name</span>
+              <input value={form.projectName} onChange={(event) => updateField('projectName', event.target.value)} placeholder="Optionnel" />
+              {errors.projectName ? <em>{errors.projectName}</em> : null}
+            </label>
+
+            <label className="request-field">
+              <span>Email</span>
+              <input type="email" value={form.email} onChange={(event) => updateField('email', event.target.value)} placeholder="Optionnel" />
+              {errors.email ? <em>{errors.email}</em> : null}
+            </label>
+          </div>
+
+          <div className="request-form__grid request-form__grid--3">
+            <label className="request-field">
+              <span>Website</span>
+              <input value={form.websiteUrl} onChange={(event) => updateField('websiteUrl', event.target.value)} placeholder="https://..." />
+              {errors.websiteUrl ? <em>{errors.websiteUrl}</em> : null}
+            </label>
+
+            <label className="request-field">
+              <span>X / Twitter</span>
+              <input value={form.xUrl} onChange={(event) => updateField('xUrl', event.target.value)} placeholder="https://x.com/..." />
+              {errors.xUrl ? <em>{errors.xUrl}</em> : null}
+            </label>
+
+            <label className="request-field">
+              <span>Telegram</span>
+              <input value={form.telegramUrl} onChange={(event) => updateField('telegramUrl', event.target.value)} placeholder="https://t.me/..." />
+              {errors.telegramUrl ? <em>{errors.telegramUrl}</em> : null}
+            </label>
+          </div>
 
           <label className="request-field">
-            <span>Email</span>
-            <input type="email" value={form.email} onChange={(event) => updateField('email', event.target.value)} placeholder="Optionnel" />
-            {errors.email ? <em>{errors.email}</em> : null}
+            <span>Notes</span>
+            <textarea
+              rows={4}
+              value={form.notes}
+              onChange={(event) => updateField('notes', event.target.value)}
+              placeholder="Contexte, red flags déjà vus, notes internes..."
+            />
+            {errors.notes ? <em>{errors.notes}</em> : null}
           </label>
-        </div>
-
-        <div className="request-form__grid request-form__grid--3">
-          <label className="request-field">
-            <span>Website</span>
-            <input value={form.websiteUrl} onChange={(event) => updateField('websiteUrl', event.target.value)} placeholder="https://..." />
-            {errors.websiteUrl ? <em>{errors.websiteUrl}</em> : null}
-          </label>
-
-          <label className="request-field">
-            <span>X / Twitter</span>
-            <input value={form.xUrl} onChange={(event) => updateField('xUrl', event.target.value)} placeholder="https://x.com/..." />
-            {errors.xUrl ? <em>{errors.xUrl}</em> : null}
-          </label>
-
-          <label className="request-field">
-            <span>Telegram</span>
-            <input value={form.telegramUrl} onChange={(event) => updateField('telegramUrl', event.target.value)} placeholder="https://t.me/..." />
-            {errors.telegramUrl ? <em>{errors.telegramUrl}</em> : null}
-          </label>
-        </div>
-
-        <label className="request-field">
-          <span>Notes</span>
-          <textarea
-            rows={4}
-            value={form.notes}
-            onChange={(event) => updateField('notes', event.target.value)}
-            placeholder="Contexte, red flags déjà vus, notes internes..."
-          />
-          {errors.notes ? <em>{errors.notes}</em> : null}
-        </label>
+        </Disclosure>
 
         {submitError ? <p className="request-form__error">{submitError}</p> : null}
 
@@ -198,7 +201,7 @@ export function RequestForm() {
           <button type="submit" className="btn-primary" disabled={isPending}>
             {isPending ? 'Création en cours…' : 'Générer le rapport'}
           </button>
-          <p className="request-form__meta">Le mock local s&apos;active si Supabase n&apos;est pas configuré.</p>
+          <p className="request-form__meta">Gratuit · 3 scans/mois</p>
         </div>
       </form>
     </section>

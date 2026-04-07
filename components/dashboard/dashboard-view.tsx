@@ -3,6 +3,9 @@ import Link from 'next/link';
 import type { ReportSummary } from '@/lib/reports/store';
 
 import { ReportListItem } from './report-list-item';
+import { AppTopbar } from '@/components/app/app-topbar';
+import { StatCard } from './stat-card';
+import { FilterBar } from './filter-bar';
 
 export function DashboardView({ reports }: { reports: ReportSummary[] }) {
   const completed = reports.filter((report) => report.status === 'completed').length;
@@ -10,15 +13,17 @@ export function DashboardView({ reports }: { reports: ReportSummary[] }) {
   const failed = reports.filter((report) => report.status === 'failed').length;
 
   return (
-    <main className="dashboard-shell">
-      <div className="noise-overlay" aria-hidden="true" />
-      <div className="container dashboard-shell__inner">
+    <>
+      <AppTopbar />
+      <main className="dashboard-shell">
+        <div className="noise-overlay" aria-hidden="true" />
+        <div className="container dashboard-shell__inner">
         <section className="card dashboard-hero">
           <div>
             <p className="eyebrow">Dashboard</p>
-            <h1>Report history</h1>
+            <h1>Centre de surveillance</h1>
             <p className="dashboard-hero__copy">
-              A minimal working list of available reports. Pulls from live data when present, or falls back to seeded demo scans.
+              Historique de vos analyses et verdicts.
             </p>
           </div>
           <div className="dashboard-hero__actions">
@@ -32,41 +37,33 @@ export function DashboardView({ reports }: { reports: ReportSummary[] }) {
         </section>
 
         <section className="dashboard-stats">
-          <article className="card dashboard-stat">
-            <span>Completed</span>
-            <strong>{completed}</strong>
-          </article>
-          <article className="card dashboard-stat">
-            <span>Processing</span>
-            <strong>{processing}</strong>
-          </article>
-          <article className="card dashboard-stat">
-            <span>Failed</span>
-            <strong>{failed}</strong>
-          </article>
-          <article className="card dashboard-stat">
-            <span>Total</span>
-            <strong>{reports.length}</strong>
-          </article>
+          <StatCard label="Terminées" value={completed} />
+          <StatCard label="En cours" value={processing} />
+          <StatCard label="Échecs" value={failed} />
+          <StatCard label="Total" value={reports.length} />
         </section>
 
         <section className="dashboard-list">
+          <div className="dashboard-list__header">
+            <FilterBar />
+          </div>
           {reports.length > 0 ? (
             reports.map((report) => <ReportListItem key={report.reportId} report={report} />)
           ) : (
             <article className="card dashboard-empty">
-              <p className="eyebrow">No reports yet</p>
-              <h2>Generate the first scan</h2>
+              <p className="eyebrow">Aucune analyse</p>
+              <h2>Lancez votre premier scan</h2>
               <p>
-                There is no cached or Supabase-backed report history available right now. Create a request to populate the dashboard.
+                Votre historique est vide. Analysez un contrat pour générer le premier rapport.
               </p>
               <Link href="/request" className="btn-primary btn-primary--sm">
-                Go to request
+                Nouvelle analyse
               </Link>
             </article>
           )}
         </section>
       </div>
     </main>
+    </>
   );
 }

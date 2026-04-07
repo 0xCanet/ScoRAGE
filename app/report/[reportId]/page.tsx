@@ -2,21 +2,23 @@ import Link from 'next/link';
 
 import { ReportView } from '@/components/report/report-view';
 import { getReportBundle } from '@/lib/reports/store';
+import { AppTopbar } from '@/components/app/app-topbar';
 
 function MissingReportState() {
   return (
     <main className="report-shell">
+      <AppTopbar />
       <div className="noise-overlay" aria-hidden="true" />
       <div className="container report-shell__inner">
         <section className="card report-shell__empty">
           <p className="eyebrow">Report</p>
-          <h1>Report unavailable</h1>
+          <h1>Rapport introuvable</h1>
           <p className="report-shell__copy">
-            This report id does not exist in the current cache or Supabase dataset. Create a new scan to generate a fresh report bundle.
+            Ce rapport n&apos;existe pas ou a expiré.
           </p>
           <div className="btn-group">
             <Link href="/request" className="btn-primary">
-              New scan
+              Nouvelle analyse
             </Link>
             <Link href="/dashboard" className="btn-secondary">
               Dashboard
@@ -38,17 +40,9 @@ export default async function ReportPage({ params }: { params: Promise<{ reportI
 
   return (
     <main className="report-shell">
+      <AppTopbar />
       <div className="noise-overlay" aria-hidden="true" />
       <div className="container report-shell__inner">
-        <div className="btn-group report-shell__header-actions">
-          <Link href="/request" className="btn-secondary">
-            New scan
-          </Link>
-          <Link href="/dashboard" className="btn-ghost">
-            Dashboard
-          </Link>
-        </div>
-
         <ReportView bundle={bundle} />
       </div>
     </main>

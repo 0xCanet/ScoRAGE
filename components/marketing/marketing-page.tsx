@@ -4,6 +4,7 @@ import { chains, pricingTiers, processSteps } from '@/components/marketing/data'
 import { FAQList } from '@/components/marketing/faq-list';
 import { FiresFramework } from '@/components/marketing/fires-framework';
 import { Navbar } from '@/components/marketing/navbar';
+import { Footer } from '@/components/marketing/footer';
 
 export function MarketingPage() {
   return (
@@ -65,8 +66,14 @@ export function MarketingPage() {
                 lequel tu décides.
               </p>
             </div>
-
-            <div className="report-mockup card">
+            <div className="mockup-frame">
+              <div className="mockup-frame__topbar">
+                <div className="mockup-frame__dots">
+                  <span /><span /><span />
+                </div>
+                <div className="mockup-frame__url">scorage.io/report/0x8f3c...</div>
+              </div>
+              <div className="report-mockup card">
               <div className="report-mockup__header">
                 <div>
                   <p className="report-project">MoonDoge Finance</p>
@@ -119,6 +126,7 @@ export function MarketingPage() {
                   du supply est concentré dans un seul wallet. Aucune liquidité verrouillée.
                 </p>
               </div>
+            </div>
             </div>
           </div>
         </section>
@@ -238,6 +246,7 @@ export function MarketingPage() {
           </div>
         </section>
       </main>
+      <Footer />
     </>
   );
 }
