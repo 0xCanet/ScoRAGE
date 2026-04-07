@@ -20,7 +20,7 @@ export function DashboardView({ reports }: { reports: ReportSummary[] }) {
         <div className="container dashboard-shell__inner">
         <section className="card dashboard-hero">
           <div>
-            <p className="eyebrow">Dashboard</p>
+            <p className="eyebrow">Tableau de bord</p>
             <h1>Centre de surveillance</h1>
             <p className="dashboard-hero__copy">
               Historique de vos analyses et verdicts.
@@ -28,10 +28,7 @@ export function DashboardView({ reports }: { reports: ReportSummary[] }) {
           </div>
           <div className="dashboard-hero__actions">
             <Link href="/request" className="btn-primary">
-              New scan
-            </Link>
-            <Link href="/" className="btn-secondary">
-              Landing
+              Nouvelle analyse
             </Link>
           </div>
         </section>
@@ -52,9 +49,9 @@ export function DashboardView({ reports }: { reports: ReportSummary[] }) {
           ) : (
             <article className="card dashboard-empty">
               <p className="eyebrow">Aucune analyse</p>
-              <h2>Lancez votre premier scan</h2>
+              <h2>Lancez votre première analyse</h2>
               <p>
-                Votre historique est vide. Analysez un contrat pour générer le premier rapport.
+                Votre historique est vide. Analysez un contrat pour générer votre premier rapport.
               </p>
               <Link href="/request" className="btn-primary btn-primary--sm">
                 Nouvelle analyse

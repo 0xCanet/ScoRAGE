@@ -29,7 +29,7 @@ export function ReportListItem({ report }: { report: ReportSummary }) {
           <span className={`badge badge--${status.tone}`}>{status.label}</span>
           <strong className="dashboard-item__score-val">{report.score}</strong>
           <Link href={`/report/${report.reportId}`} className="btn-secondary btn-secondary--sm">
-            Ouvrir
+            Voir le rapport
           </Link>
         </div>
       </div>

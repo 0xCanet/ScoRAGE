@@ -1554,6 +1554,12 @@ p {
   font-size: var(--text-body-sm);
 }
 
+.btn-ghost--app.is-active {
+  color: var(--color-white);
+  border-bottom: 2px solid var(--color-blood);
+  padding-bottom: 2px;
+}
+
 .footer-shell {
   background: var(--color-abyss);
   border-top: 1px solid var(--color-steel);

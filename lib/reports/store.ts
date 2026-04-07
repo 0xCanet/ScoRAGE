@@ -178,9 +178,9 @@ const readBundleFromSupabase = async (reportId: string): Promise<CachedBundle | 
   const evidences = ((evidenceRows ?? []) as EvidenceRow[]).map(fromEvidenceRow);
   const request = requestRow ? fromReportRequestRow(requestRow) : undefined;
   const positives = [
-    request?.payload.websiteUrl ? 'Official website attached to the request.' : undefined,
-    request?.payload.xUrl ? 'Public X profile supplied for reputation review.' : undefined,
-    request?.payload.telegramUrl ? 'Telegram community URL available.' : undefined,
+    request?.payload.websiteUrl ? 'Site web officiel fourni avec la demande.' : undefined,
+    request?.payload.xUrl ? 'Profil X public fourni pour la verification de reputation.' : undefined,
+    request?.payload.telegramUrl ? 'URL de la communaute Telegram disponible.' : undefined,
     ...evidences.filter((evidence) => evidence.severity === 'positive').map((evidence) => evidence.title),
   ].filter((value): value is string => Boolean(value));
 

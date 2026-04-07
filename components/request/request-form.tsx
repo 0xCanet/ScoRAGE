@@ -36,7 +36,7 @@ export function RequestForm() {
   const [isPending, startTransition] = useTransition();
 
   const helperText = useMemo(
-    () => reportChainOptions.find((option) => option.value === form.chain)?.hint ?? 'Contract address',
+    () => reportChainOptions.find((option) => option.value === form.chain)?.hint ?? 'Adresse du contrat',
     [form.chain],
   );
 
@@ -79,7 +79,7 @@ export function RequestForm() {
       }, {});
 
       setErrors(nextErrors);
-      setSubmitError(validation.errors.find((error) => error.field === 'root')?.message ?? 'Corrige les champs ci-dessus.');
+      setSubmitError(validation.errors.find((error) => error.field === 'root')?.message ?? 'Corrigez les champs ci-dessus.');
       return;
     }
 
@@ -115,13 +115,13 @@ export function RequestForm() {
     <section className="card request-form-card" id="request-form">
       <div className="request-form-card__header">
         <p className="eyebrow">Nouvelle analyse</p>
-        <h2>Créer un report</h2>
-        <p>Renseignez l&apos;adresse du contrat. Le reste est optionnel.</p>
+        <h2>Soumettre un contrat</h2>
+        <p>Renseignez l&apos;adresse du contrat à analyser. Les autres champs sont optionnels.</p>
       </div>
 
       <form className="request-form" onSubmit={handleSubmit} noValidate>
         <label className="request-field">
-          <span>Chain</span>
+          <span>Réseau</span>
           <select value={form.chain} onChange={(event) => updateField('chain', event.target.value)}>
             {reportChainOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -134,7 +134,7 @@ export function RequestForm() {
         </label>
 
         <label className="request-field">
-          <span>Contract address</span>
+          <span>Adresse du contrat</span>
           <input
             type="text"
             inputMode="text"
@@ -151,7 +151,7 @@ export function RequestForm() {
         <Disclosure title="Informations complémentaires">
           <div className="request-form__grid">
             <label className="request-field">
-              <span>Project name</span>
+              <span>Nom du projet</span>
               <input value={form.projectName} onChange={(event) => updateField('projectName', event.target.value)} placeholder="Optionnel" />
               {errors.projectName ? <em>{errors.projectName}</em> : null}
             </label>
@@ -165,7 +165,7 @@ export function RequestForm() {
 
           <div className="request-form__grid request-form__grid--3">
             <label className="request-field">
-              <span>Website</span>
+              <span>Site web</span>
               <input value={form.websiteUrl} onChange={(event) => updateField('websiteUrl', event.target.value)} placeholder="https://..." />
               {errors.websiteUrl ? <em>{errors.websiteUrl}</em> : null}
             </label>
@@ -189,7 +189,7 @@ export function RequestForm() {
               rows={4}
               value={form.notes}
               onChange={(event) => updateField('notes', event.target.value)}
-              placeholder="Contexte, red flags déjà vus, notes internes..."
+              placeholder="Contexte, signaux suspects déjà repérés, notes internes…"
             />
             {errors.notes ? <em>{errors.notes}</em> : null}
           </label>
@@ -199,9 +199,9 @@ export function RequestForm() {
 
         <div className="btn-group request-form__actions">
           <button type="submit" className="btn-primary" disabled={isPending}>
-            {isPending ? 'Création en cours…' : 'Générer le rapport'}
+            {isPending ? 'Analyse en cours…' : 'Lancer l\u2019analyse'}
           </button>
-          <p className="request-form__meta">Gratuit · 3 scans/mois</p>
+          <p className="request-form__meta">Gratuit · 3 analyses/mois</p>
         </div>
       </form>
     </section>

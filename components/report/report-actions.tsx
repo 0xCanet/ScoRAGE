@@ -11,22 +11,26 @@ export function ReportActions({ reportId }: { reportId: string }) {
       return;
     }
 
-    const url = new URL(`/report/${reportId}`, window.location.origin).toString();
-    await navigator.clipboard.writeText(url);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1800);
+    try {
+      const url = new URL(`/report/${reportId}`, window.location.origin).toString();
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1800);
+    } catch {
+      // Silently fail if clipboard is unavailable
+    }
   };
 
   return (
     <div className="report-actions">
       <a href={`/api/pdf/${reportId}`} className="btn-primary btn-primary--sm" download>
-        Export PDF
+        Télécharger PDF
       </a>
       <button type="button" className="btn-secondary btn-secondary--sm" onClick={handleCopy}>
-        {copied ? 'Link copied' : 'Copy report link'}
+        {copied ? 'Lien copié ✓' : 'Copier le lien'}
       </button>
       <Link href="/request" className="btn-ghost">
-        New scan
+        Nouvelle analyse
       </Link>
     </div>
   );

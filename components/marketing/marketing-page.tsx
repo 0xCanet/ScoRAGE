@@ -23,7 +23,7 @@ export function MarketingPage() {
               </h1>
               <p className="hero__lead">
                 Colle l&apos;adresse d&apos;un token. ScoRAGE passe au crible le contrat, la liquidité,
-                l&apos;équipe et chaque red flag — verdict clair en 2 à 5 minutes. Score sur 100.
+                l&apos;équipe et chaque signal d&apos;alerte — verdict clair en 2 à 5 minutes. Score sur 100.
                 Rapport Web + PDF. Framework F.I.R.E.S.
               </p>
               <div className="terminal-hint">
@@ -44,10 +44,10 @@ export function MarketingPage() {
               <p className="score-card__label">Résultat d&apos;analyse</p>
               <div className="score-card__value score-card__value--high">27</div>
               <p className="score-card__label">/ 100</p>
-              <span className="badge badge--high">HIGH RISK</span>
+              <span className="badge badge--high">RISQUE ÉLEVÉ</span>
               <div className="flag-list">
-                <span className="badge badge--critical">✕ Liquidité verrouillée 0%</span>
-                <span className="badge badge--critical">⚠ 82% supply in 1 wallet</span>
+                <span className="badge badge--critical">✕ Liquidité verrouillée 0 %</span>
+                <span className="badge badge--critical">⚠ 82 % du supply dans 1 wallet</span>
                 <span className="badge badge--critical">✕ Aucun audit</span>
               </div>
             </div>
@@ -78,14 +78,14 @@ export function MarketingPage() {
                 <div>
                   <p className="report-project">MoonDoge Finance</p>
                   <p className="report-meta">
-                    Contract: 0x8f3c...a91d
+                    Contrat : 0x8f3c...a91d
                     <br />
-                    Chain: BSC · BEP-20
+                    Réseau : BSC · BEP-20
                     <br />
                     Analysé le 06 avr. 2026
                   </p>
                 </div>
-                <span className="badge badge--critical">CRITICAL RISK</span>
+                <span className="badge badge--critical">RISQUE CRITIQUE</span>
               </div>
 
               <div className="report-grid">
@@ -113,8 +113,8 @@ export function MarketingPage() {
               <div className="flag-list">
                 <span className="badge badge--critical">✕ Honeypot pattern détecté</span>
                 <span className="badge badge--critical">✕ Liquidité non verrouillée</span>
-                <span className="badge badge--critical">⚠ Équipe 100% anonyme</span>
-                <span className="badge badge--safe">✓ Contract vérifié BSCScan</span>
+                <span className="badge badge--critical">⚠ Équipe 100 % anonyme</span>
+                <span className="badge badge--safe">✓ Contrat vérifié BSCScan</span>
                 <span className="badge badge--safe">✓ Pas de proxy upgradeable</span>
               </div>
 
@@ -122,7 +122,7 @@ export function MarketingPage() {
                 <p className="eyebrow">Verdict ScoRAGE</p>
                 <p>
                   Le contrat MoonDoge Finance présente des signaux critiques incompatibles avec un
-                  investissement. La fonction mint() permet la création illimitée de tokens. 92%
+                  investissement. La fonction mint() permet la création illimitée de tokens. 92 %
                   du supply est concentré dans un seul wallet. Aucune liquidité verrouillée.
                 </p>
               </div>
@@ -134,7 +134,7 @@ export function MarketingPage() {
         <section className="section" id="process">
           <div className="container">
             <div className="section-header section-header--center">
-              <p className="eyebrow">Process</p>
+              <p className="eyebrow">Fonctionnement</p>
               <h2>
                 En 3 étapes. <span className="text-blood">C&apos;est tout.</span>
               </h2>
@@ -192,7 +192,7 @@ export function MarketingPage() {
         <section className="section section--abyss" id="pricing">
           <div className="container">
             <div className="section-header section-header--center">
-              <p className="eyebrow">Pricing</p>
+              <p className="eyebrow">Tarifs</p>
               <h2>
                 Le prix d&apos;une <span className="text-blood">décision éclairée.</span>
               </h2>
@@ -240,9 +240,9 @@ export function MarketingPage() {
               <span>Adresse du contrat (SOL, BSC, Base, ETH)</span>
             </div>
             <Link href="/request" className="btn-primary btn-primary--lg">
-              Lancer le scan
+              Lancer l&apos;analyse
             </Link>
-            <p className="cta-section__meta">Gratuit · 3 scans/mois · sans carte bancaire</p>
+            <p className="cta-section__meta">Gratuit · 3 analyses/mois · sans carte bancaire</p>
           </div>
         </section>
       </main>

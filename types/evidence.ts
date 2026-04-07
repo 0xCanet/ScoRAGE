@@ -24,7 +24,7 @@ export const evidenceCategoryLabels: Record<EvidenceCategory, string> = {
 };
 
 export const evidenceSeverityLabels: Record<EvidenceSeverity, string> = {
-  positive: 'Positive',
-  warning: 'Warning',
-  critical: 'Critical',
+  positive: 'OK',
+  warning: 'Attention',
+  critical: 'Critique',
 };

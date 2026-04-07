@@ -11,7 +11,7 @@ function MissingReportState() {
       <div className="noise-overlay" aria-hidden="true" />
       <div className="container report-shell__inner">
         <section className="card report-shell__empty">
-          <p className="eyebrow">Report</p>
+          <p className="eyebrow">Rapport</p>
           <h1>Rapport introuvable</h1>
           <p className="report-shell__copy">
             Ce rapport n&apos;existe pas ou a expiré.
@@ -21,7 +21,7 @@ function MissingReportState() {
               Nouvelle analyse
             </Link>
             <Link href="/dashboard" className="btn-secondary">
-              Dashboard
+              Tableau de bord
             </Link>
           </div>
         </section>

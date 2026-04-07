@@ -19,45 +19,45 @@ export type ReportStatusMeta = {
 
 const verdictMetaMap: Record<VerdictLevel, Omit<VerdictMeta, 'level'>> = {
   critical: {
-    label: 'Critical',
+    label: 'Critique',
     tone: 'critical',
-    badgeLabel: 'Critical risk',
-    description: 'The risk profile is acute. Treat the asset as untrusted until the contract and supply model are independently verified.',
+    badgeLabel: 'Risque critique',
+    description: "Le profil de risque est élevé. Considérez cet actif comme non fiable tant que le contrat et le modèle de supply n'ont pas été vérifiés indépendamment.",
   },
   high: {
-    label: 'High',
+    label: 'Élevé',
     tone: 'high',
-    badgeLabel: 'High risk',
-    description: 'Several weak signals were found. A manual review is strongly recommended before any position is taken.',
+    badgeLabel: 'Risque élevé',
+    description: 'Plusieurs signaux faibles ont été identifiés. Une revue manuelle est fortement recommandée avant toute prise de position.',
   },
   moderate: {
-    label: 'Moderate',
+    label: 'Modéré',
     tone: 'moderate',
-    badgeLabel: 'Moderate risk',
-    description: 'The profile is mixed. Some checks are acceptable, but the contract still deserves a deeper look.',
+    badgeLabel: 'Risque modéré',
+    description: "Le profil est mixte. Certains contrôles sont acceptables, mais le contrat mérite un examen approfondi.",
   },
   low: {
-    label: 'Low',
+    label: 'Faible',
     tone: 'low',
-    badgeLabel: 'Lower risk',
-    description: 'The current pass looks comparatively healthier, though every token should still be validated before purchase.',
+    badgeLabel: 'Risque faible',
+    description: "L'analyse actuelle montre un profil comparativement plus sain, mais chaque token doit être vérifié avant achat.",
   },
 };
 
 const statusMetaMap: Record<ReportStatus, ReportStatusMeta> = {
   processing: {
     status: 'processing',
-    label: 'Processing',
+    label: 'En cours',
     tone: 'neutral',
   },
   completed: {
     status: 'completed',
-    label: 'Completed',
+    label: 'Terminé',
     tone: 'safe',
   },
   failed: {
     status: 'failed',
-    label: 'Failed',
+    label: 'Échec',
     tone: 'critical',
   },
 };

@@ -19,11 +19,17 @@ const severityToneMap = {
   positive: 'safe',
 } as const;
 
+const severityLabelMap: Record<'critical' | 'warning' | 'positive', string> = {
+  critical: 'Critique',
+  warning: 'Attention',
+  positive: 'OK',
+};
+
 const scoreVerdictLabelMap: Record<'critical' | 'high' | 'moderate' | 'low', string> = {
-  critical: 'Critical',
-  high: 'High',
-  moderate: 'Moderate',
-  low: 'Low',
+  critical: 'Critique',
+  high: 'Élevé',
+  moderate: 'Modéré',
+  low: 'Faible',
 };
 
 export function ReportView({ bundle }: { bundle: ReportBundle }) {
@@ -39,7 +45,7 @@ export function ReportView({ bundle }: { bundle: ReportBundle }) {
     <div className="report-layout">
       <section className="card report-hero">
         <div className="report-hero__copy">
-          <p className="eyebrow">Report / {report.id.slice(0, 8)}</p>
+          <p className="eyebrow">Rapport / {report.id.slice(0, 8)}</p>
           <h1>{projectLabel}</h1>
           <p className="report-hero__lead">{report.summary}</p>
           <div className="report-hero__chips">
@@ -50,15 +56,15 @@ export function ReportView({ bundle }: { bundle: ReportBundle }) {
           </div>
           <div className="report-hero__meta-row">
             <div>
-              <p className="report-hero__meta-label">Generated</p>
+              <p className="report-hero__meta-label">Généré le</p>
               <p className="report-hero__meta-value">{generatedLabel}</p>
             </div>
             <div>
-              <p className="report-hero__meta-label">Methodology</p>
+              <p className="report-hero__meta-label">Méthodologie</p>
               <p className="report-hero__meta-value">{report.methodologyVersion}</p>
             </div>
             <div>
-              <p className="report-hero__meta-label">Risk model</p>
+              <p className="report-hero__meta-label">Modèle de risque</p>
               <p className="report-hero__meta-value">F.I.R.E.S.</p>
             </div>
           </div>
@@ -66,25 +72,25 @@ export function ReportView({ bundle }: { bundle: ReportBundle }) {
         </div>
 
         <aside className="report-score-panel">
-          <p className="eyebrow">ScoRAGE score</p>
+          <p className="eyebrow">Score ScoRAGE</p>
           <div className={`report-score-panel__value report-score-panel__value--${verdict.tone}`}>{report.score.total}</div>
           <p className="report-score-panel__label">/ 100</p>
           <p className="report-score-panel__description">{verdict.description}</p>
           <div className="report-score-panel__stats">
             <div>
-              <span>Status</span>
+              <span>Statut</span>
               <strong>{status.label}</strong>
             </div>
             <div>
-              <span>Red flags</span>
+              <span>Alertes</span>
               <strong>{redFlagCount}</strong>
             </div>
             <div>
-              <span>Positives</span>
+              <span>Points positifs</span>
               <strong>{positiveCount}</strong>
             </div>
             <div>
-              <span>Report ID</span>
+              <span>ID rapport</span>
               <strong>{report.id.slice(0, 12)}…</strong>
             </div>
           </div>
@@ -129,16 +135,16 @@ export function ReportView({ bundle }: { bundle: ReportBundle }) {
           </div>
           <div className="report-signal-grid">
             <div className="report-signal-card report-signal-card--critical">
-              <p className="report-signal-card__label">Red flags</p>
+              <p className="report-signal-card__label">Alertes</p>
               <strong>{redFlagCount}</strong>
               <SignalList 
                 items={report.redFlags} 
                 type="critical" 
-                emptyMessage="Aucun red flag identifié." 
+                emptyMessage="Aucune alerte identifiée." 
               />
             </div>
             <div className="report-signal-card report-signal-card--safe">
-              <p className="report-signal-card__label">Positives</p>
+              <p className="report-signal-card__label">Points positifs</p>
               <strong>{positiveCount}</strong>
               <SignalList 
                 items={report.positives} 
@@ -154,7 +160,7 @@ export function ReportView({ bundle }: { bundle: ReportBundle }) {
         <div className="report-section-card__header">
           <div>
             <p className="eyebrow">Analyse approfondie</p>
-            <h2>Evidence</h2>
+            <h2>Preuves collectées</h2>
           </div>
         </div>
 
@@ -166,18 +172,18 @@ export function ReportView({ bundle }: { bundle: ReportBundle }) {
                   <p className="report-evidence-card__kicker">{scoreCategoryLabels[evidence.category]}</p>
                   <h3>{evidence.title}</h3>
                 </div>
-                <span className={`badge badge--${severityToneMap[evidence.severity]}`}>{evidence.severity}</span>
+                <span className={`badge badge--${severityToneMap[evidence.severity]}`}>{severityLabelMap[evidence.severity]}</span>
               </div>
               <p className="report-evidence-card__detail">{evidence.detail}</p>
               <div className="report-evidence-card__footer">
-                <span>Raw value: {evidence.rawValue ?? '—'}</span>
-                <span>{evidence.sourceLabel ?? 'ScoRAGE engine'}</span>
+                <span>Valeur brute : {evidence.rawValue ?? '—'}</span>
+                <span>{evidence.sourceLabel ?? 'Moteur ScoRAGE'}</span>
                 {evidence.sourceUrl ? (
                   <a href={evidence.sourceUrl} target="_blank" rel="noreferrer">
                     Source
                   </a>
                 ) : (
-                  <span>Internal signal</span>
+                  <span>Signal interne</span>
                 )}
               </div>
             </article>
@@ -190,19 +196,19 @@ export function ReportView({ bundle }: { bundle: ReportBundle }) {
           <p className="eyebrow">Métadonnées</p>
           <div className="report-meta-list">
             <div>
-              <span>Report ID</span>
+              <span>ID rapport</span>
               <strong>{report.id}</strong>
             </div>
             <div>
-              <span>Project ID</span>
+              <span>ID projet</span>
               <strong>{project.id}</strong>
             </div>
             <div>
-              <span>Status</span>
-              <strong>{report.status}</strong>
+              <span>Statut</span>
+              <strong>{status.label}</strong>
             </div>
             <div>
-              <span>Generated</span>
+              <span>Généré le</span>
               <strong>{generatedLabel}</strong>
             </div>
           </div>
@@ -212,14 +218,14 @@ export function ReportView({ bundle }: { bundle: ReportBundle }) {
           <p className="eyebrow">Actions</p>
           <h2>Étapes suivantes</h2>
           <p className="report-section-card__copy">
-            Exportez le rapport pour le partager, ou consultez votre centre de surveillance.
+            Exportez le rapport pour le partager, ou consultez votre tableau de bord.
           </p>
           <div className="btn-group report-section-card__actions">
             <a href={`/api/pdf/${report.id}`} className="btn-primary btn-primary--sm" download>
               Télécharger PDF
             </a>
             <Link href="/dashboard" className="btn-secondary btn-secondary--sm">
-              Ouvrir dashboard
+              Tableau de bord
             </Link>
           </div>
         </article>

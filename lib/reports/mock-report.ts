@@ -62,14 +62,14 @@ const evidenceDetail = (category: string, chain: Project['chain'], address: stri
   const label = chainLabels[chain];
 
   if (score <= 25) {
-    return `${label}: ${category} signal is materially weak for ${shortAddress(address)}.`;
+    return `${label} : le signal ${category} est critique pour ${shortAddress(address)}.`;
   }
 
   if (score <= 55) {
-    return `${label}: ${category} profile is mixed for ${shortAddress(address)} and needs closer review.`;
+    return `${label} : le profil ${category} est mixte pour ${shortAddress(address)} et necessite un examen approfondi.`;
   }
 
-  return `${label}: ${category} checks are currently acceptable for ${shortAddress(address)}.`;
+  return `${label} : les controles ${category} sont acceptables pour ${shortAddress(address)}.`;
 };
 
 export function buildMockReportBundle({
@@ -104,7 +104,7 @@ export function buildMockReportBundle({
   };
 
   const verdict = scoreToVerdict(score.total);
-  const projectLabel = request.projectName ?? `${chainLabels[request.chain]} contract`;
+  const projectLabel = request.projectName ?? `Contrat ${chainLabels[request.chain]}`;
 
   const evidenceScaffold = [
     ['financials', score.financials],
@@ -118,9 +118,9 @@ export function buildMockReportBundle({
     const severity = scoreSeverity(categoryScore);
     const label = evidenceCategoryLabels[category];
     const titleMap: Record<'critical' | 'warning' | 'positive', string> = {
-      critical: `${label} red flag`,
-      warning: `${label} caution`,
-      positive: `${label} check passed`,
+      critical: `${label} — alerte critique`,
+      warning: `${label} — attention`,
+      positive: `${label} — controle OK`,
     };
 
     return {
@@ -130,7 +130,7 @@ export function buildMockReportBundle({
       title: titleMap[severity],
       detail: evidenceDetail(label, request.chain, request.contractAddress, categoryScore),
       severity,
-      sourceLabel: index === 0 ? 'ScoRAGE mock engine' : undefined,
+      sourceLabel: index === 0 ? 'Moteur ScoRAGE' : undefined,
       sourceUrl: request.websiteUrl ?? undefined,
       rawValue: String(categoryScore),
       createdAt,
@@ -138,9 +138,9 @@ export function buildMockReportBundle({
   });
 
   const positives = [
-    request.websiteUrl ? 'Official website attached to the request.' : 'No website URL supplied, but the contract request is complete.',
-    request.xUrl ? 'Public X profile supplied for reputation review.' : 'Request can be analysed without social links.',
-    request.telegramUrl ? 'Telegram community URL available.' : 'No Telegram URL attached.',
+    request.websiteUrl ? 'Site web officiel fourni avec la demande.' : 'Pas de site web fourni, mais la demande est complete.',
+    request.xUrl ? 'Profil X public fourni pour la verification de reputation.' : 'Analyse possible sans liens sociaux.',
+    request.telegramUrl ? 'URL de la communaute Telegram disponible.' : 'Pas de lien Telegram fourni.',
   ].filter((value): value is string => Boolean(value));
 
   const redFlags = evidences
@@ -149,12 +149,12 @@ export function buildMockReportBundle({
 
   const summary =
     verdict === 'critical'
-      ? `${projectLabel} on ${chainLabels[request.chain]} shows a critical risk profile. Treat the token as untrusted until the contract, supply and ownership model are independently verified.`
+      ? `${projectLabel} sur ${chainLabels[request.chain]} presente un profil de risque critique. Considerez ce token comme non fiable tant que le contrat, le supply et le modele de propriete n'ont pas ete verifies independamment.`
       : verdict === 'high'
-        ? `${projectLabel} on ${chainLabels[request.chain]} is high risk. The mock F.I.R.E.S. engine found several weak signals that deserve manual review.`
+        ? `${projectLabel} sur ${chainLabels[request.chain]} presente un risque eleve. Le moteur F.I.R.E.S. a detecte plusieurs signaux faibles qui meritent une revue manuelle.`
         : verdict === 'moderate'
-          ? `${projectLabel} on ${chainLabels[request.chain]} is mixed-risk. Some signals are acceptable, but the contract still needs a deeper look.`
-          : `${projectLabel} on ${chainLabels[request.chain]} looks comparatively healthier in this mock pass, though all tokens should still be verified before purchase.`;
+          ? `${projectLabel} sur ${chainLabels[request.chain]} presente un risque mixte. Certains signaux sont acceptables, mais le contrat necessite un examen approfondi.`
+          : `${projectLabel} sur ${chainLabels[request.chain]} presente un profil comparativement plus sain, mais chaque token doit etre verifie avant achat.`;
 
   const report: Report = {
     id: reportId,
