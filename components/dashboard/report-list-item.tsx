@@ -19,7 +19,7 @@ export function ReportListItem({ report }: { report: ReportSummary }) {
             <p className="dashboard-item__title">{report.projectName ?? shortAddress(report.contractAddress)}</p>
           </div>
           <p className="dashboard-item__meta">
-            {formatReportDay(report.generatedAt ?? report.createdAt)}
+            {shortAddress(report.contractAddress)} · {formatReportDay(report.generatedAt ?? report.createdAt)}
           </p>
         </div>
         <div className="dashboard-item__stats">
@@ -27,7 +27,10 @@ export function ReportListItem({ report }: { report: ReportSummary }) {
             <span className={`badge badge--${getVerdictBadgeTone(report.verdict)}`}>{verdict.badgeLabel}</span>
           )}
           <span className={`badge badge--${status.tone}`}>{status.label}</span>
-          <strong className="dashboard-item__score-val">{report.score}</strong>
+          <div className="dashboard-item__score">
+            <span>Score</span>
+            <strong className="dashboard-item__score-val">{report.score}</strong>
+          </div>
           <Link href={`/report/${report.reportId}`} className="btn-secondary btn-secondary--sm">
             Voir le rapport
           </Link>

@@ -709,13 +709,12 @@ p {
 
 .request-shell {
   min-height: 100vh;
-  display: grid;
-  place-items: center;
+  padding-bottom: clamp(56px, 8vw, 88px);
 }
 
 .request-shell__inner {
-  max-width: 720px;
-  padding: 96px 0;
+  max-width: 760px;
+  padding: clamp(48px, 8vw, 88px) 0 0;
 }
 
 .request-shell__copy {
@@ -724,6 +723,32 @@ p {
 
 .request-page__hero {
   margin-bottom: var(--space-8);
+}
+
+.request-shell__bullets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.request-shell__bullets span,
+.dashboard-hero__meta span,
+.dashboard-item__score span,
+.dashboard-list__legend {
+  color: var(--color-ash);
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.request-shell__bullets span,
+.dashboard-hero__meta span {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 10px;
+  border: 1px solid var(--color-steel);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .request-grid,
@@ -979,6 +1004,16 @@ p {
   gap: var(--space-3);
 }
 
+.report-actions-block {
+  display: grid;
+  gap: 10px;
+}
+
+.report-actions__hint {
+  color: var(--color-ash);
+  font-size: var(--text-caption);
+}
+
 .report-hero__meta-row {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1074,7 +1109,8 @@ p {
 }
 
 .report-grid--fires,
-.report-grid--meta {
+.report-grid--meta,
+.report-grid--analysis {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
@@ -1092,6 +1128,202 @@ p {
 
 .report-section-card__copy {
   max-width: 36ch;
+}
+
+.report-section-card__copy--wide {
+  max-width: none;
+}
+
+.report-facts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.report-fact-card {
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+  border: 1px solid var(--color-steel);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.report-fact-card span,
+.report-market-overview__stat span,
+.report-market-table__head span,
+.report-market-table__meta {
+  color: var(--color-ash);
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.report-fact-card strong,
+.report-market-overview__stat strong,
+.report-market-table__row strong {
+  color: var(--color-white);
+}
+
+.report-fact-card p {
+  color: var(--color-smoke);
+  font-size: var(--text-caption);
+}
+
+.report-market-overview {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.report-market-overview__stat {
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+  border: 1px solid var(--color-steel);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.report-social-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.report-social-card {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--color-steel);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.report-social-card__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.report-social-card__kicker {
+  margin-bottom: 4px;
+  color: var(--color-ash);
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.report-social-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--color-smoke);
+  font-size: var(--text-caption);
+}
+
+.report-social-card__meta span + span::before {
+  content: '•';
+  margin-right: 8px;
+  color: var(--color-ash);
+}
+
+.report-social-card a {
+  width: fit-content;
+}
+
+.report-market-table {
+  display: grid;
+  gap: 10px;
+}
+
+.report-market-table__head,
+.report-market-table__row {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1.8fr) repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  align-items: center;
+}
+
+.report-market-table__head {
+  padding: 0 2px;
+}
+
+.report-market-table__row {
+  padding: 14px;
+  border: 1px solid var(--color-steel);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.report-market-table__row span {
+  color: var(--color-smoke);
+}
+
+.report-market-table__meta,
+.report-market-table__empty {
+  grid-column: 1 / -1;
+  margin-top: -2px;
+}
+
+.report-market-table__empty {
+  padding: 14px;
+  border: 1px dashed var(--color-steel);
+  color: var(--color-ash);
+}
+
+.report-fires-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.report-fire-card {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border: 1px solid var(--color-steel);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.report-fire-card__head {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.report-fire-card__head p {
+  margin-top: 4px;
+  color: var(--color-ash);
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.report-fire-card__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.report-fire-card__kicker {
+  margin-bottom: 6px;
+  color: var(--color-ash);
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.report-fires-row__score,
+.report-fire-card__head strong {
+  color: var(--color-white);
+}
+
+.report-fires-row__score {
+  font-size: 16px;
 }
 
 .report-fires-list {
@@ -1251,9 +1483,20 @@ p {
   gap: var(--space-6);
 }
 
+.dashboard-hero__content {
+  display: grid;
+  gap: var(--space-4);
+}
+
 .dashboard-hero__copy {
-  max-width: 720px;
-  margin-top: var(--space-4);
+  max-width: 56ch;
+  margin-top: 0;
+}
+
+.dashboard-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
 }
 
 .dashboard-hero__actions {
@@ -1318,6 +1561,7 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: var(--space-4);
 }
 
 .dashboard-list {
@@ -1377,6 +1621,12 @@ p {
   align-items: center;
   justify-content: flex-end;
   gap: var(--space-3);
+}
+
+.dashboard-item__score {
+  display: grid;
+  justify-items: end;
+  gap: 4px;
 }
 
 .dashboard-item__score-val {
@@ -1550,15 +1800,19 @@ p {
 }
 
 .btn-ghost--app {
+  padding: 10px 0;
   text-decoration: none;
   font-size: var(--text-body-sm);
 }
 
 .btn-ghost--app.is-active {
   color: var(--color-white);
-  border-bottom: 2px solid var(--color-blood);
-  padding-bottom: 2px;
+  text-decoration-color: var(--color-blood);
 }
+
+.btn-secondary.is-active {
+  border-color: rgba(255, 34, 59, 0.45);
+  color: var(--color-white);}
 
 .footer-shell {
   background: var(--color-abyss);
@@ -1634,6 +1888,20 @@ p {
   .dashboard-item__footer {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .report-market-overview,
+  .report-facts-grid,
+  .report-social-grid,
+  .report-fires-detail-grid,
+  .report-fire-card__grid,
+  .report-market-table__head,
+  .report-market-table__row {
+    grid-template-columns: 1fr;
+  }
+
+  .report-market-table__row {
+    gap: 6px;
   }
 }
 

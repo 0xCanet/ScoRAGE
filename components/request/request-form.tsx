@@ -36,8 +36,7 @@ export function RequestForm() {
   const [isPending, startTransition] = useTransition();
 
   const helperText = useMemo(
-    () => reportChainOptions.find((option) => option.value === form.chain)?.hint ?? 'Adresse du contrat',
-    [form.chain],
+    () => reportChainOptions.find((option) => option.value === form.chain)?.hint ?? 'Adresse de contrat',    [form.chain],
   );
 
   const updateField = <K extends keyof FormState>(field: K, value: FormState[K]) => {
@@ -115,21 +114,19 @@ export function RequestForm() {
     <section className="card request-form-card" id="request-form">
       <div className="request-form-card__header">
         <p className="eyebrow">Nouvelle analyse</p>
-        <h2>Soumettre un contrat</h2>
-        <p>Renseignez l&apos;adresse du contrat à analyser. Les autres champs sont optionnels.</p>
-      </div>
+        <h2>Préparer un rapport exploitable</h2>
+        <p>L&apos;adresse du contrat est obligatoire. Les autres champs servent à enrichir le verdict.</p>      </div>
 
       <form className="request-form" onSubmit={handleSubmit} noValidate>
         <label className="request-field">
-          <span>Réseau</span>
-          <select value={form.chain} onChange={(event) => updateField('chain', event.target.value)}>
+          <span>Réseau analysé</span>          <select value={form.chain} onChange={(event) => updateField('chain', event.target.value)}>
             {reportChainOptions.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
             ))}
           </select>
-          <small>{helperText}</small>
+          <small>Choisis le réseau du contrat pour appliquer le bon format d&apos;adresse.</small>
           {errors.chain ? <em>{errors.chain}</em> : null}
         </label>
 
@@ -144,29 +141,27 @@ export function RequestForm() {
             value={form.contractAddress}
             onChange={(event) => updateField('contractAddress', event.target.value)}
           />
-          <small>{helperText}</small>
+          <small>Format attendu : {helperText.toLowerCase()}.</small>
           {errors.contractAddress ? <em>{errors.contractAddress}</em> : null}
         </label>
 
-        <Disclosure title="Informations complémentaires">
+        <Disclosure title="Contexte complémentaire (optionnel)">
           <div className="request-form__grid">
             <label className="request-field">
               <span>Nom du projet</span>
-              <input value={form.projectName} onChange={(event) => updateField('projectName', event.target.value)} placeholder="Optionnel" />
-              {errors.projectName ? <em>{errors.projectName}</em> : null}
+              <input value={form.projectName} onChange={(event) => updateField('projectName', event.target.value)} placeholder="Ex. MoonDoge Finance" />              {errors.projectName ? <em>{errors.projectName}</em> : null}
             </label>
 
             <label className="request-field">
               <span>Email</span>
-              <input type="email" value={form.email} onChange={(event) => updateField('email', event.target.value)} placeholder="Optionnel" />
+              <input type="email" value={form.email} onChange={(event) => updateField('email', event.target.value)} placeholder="Pour recevoir le rapport plus tard" />
               {errors.email ? <em>{errors.email}</em> : null}
             </label>
           </div>
 
           <div className="request-form__grid request-form__grid--3">
             <label className="request-field">
-              <span>Site web</span>
-              <input value={form.websiteUrl} onChange={(event) => updateField('websiteUrl', event.target.value)} placeholder="https://..." />
+              <span>Site officiel</span>              <input value={form.websiteUrl} onChange={(event) => updateField('websiteUrl', event.target.value)} placeholder="https://..." />
               {errors.websiteUrl ? <em>{errors.websiteUrl}</em> : null}
             </label>
 
@@ -184,13 +179,12 @@ export function RequestForm() {
           </div>
 
           <label className="request-field">
-            <span>Notes</span>
+            <span>Notes de contexte</span>
             <textarea
               rows={4}
               value={form.notes}
               onChange={(event) => updateField('notes', event.target.value)}
-              placeholder="Contexte, signaux suspects déjà repérés, notes internes…"
-            />
+              placeholder="Ex. wallet suspect repéré, LP non verrouillée, doute sur l'équipe..."            />
             {errors.notes ? <em>{errors.notes}</em> : null}
           </label>
         </Disclosure>
@@ -199,10 +193,9 @@ export function RequestForm() {
 
         <div className="btn-group request-form__actions">
           <button type="submit" className="btn-primary" disabled={isPending}>
-            {isPending ? 'Analyse en cours…' : 'Lancer l\u2019analyse'}
+            {isPending ? 'Analyse en cours…' : 'Lancer l’analyse'}
           </button>
-          <p className="request-form__meta">Gratuit · 3 analyses/mois</p>
-        </div>
+          <p className="request-form__meta">Gratuit · 3 analyses/mois · sans carte bancaire</p>        </div>
       </form>
     </section>
   );

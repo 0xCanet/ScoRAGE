@@ -1,7 +1,8 @@
 import type { ReportBundle } from '@/types/report';
 import { chainLabels } from '@/types/project';
-import { scoreCategoryLabels } from '@/types/score';
+import { scoreCategoryLabels, scoreToVerdict } from '@/types/score';
 
+import { buildAnalysisPanels, formatAddress, formatCurrency } from './analysis-panels';
 import { getReportStatusMeta, getVerdictBadgeTone, getVerdictMeta } from './verdict';
 import { formatReportDate, reportProjectLabel, shortAddress } from './summary';
 
@@ -23,6 +24,7 @@ export function buildReportPdfHtml(bundle: ReportBundle): string {
   const projectLabel = reportProjectLabel(project);
   const generatedLabel = formatReportDate(report.generatedAt ?? report.createdAt);
   const scoreColor = report.score.total <= 25 ? '#ff223b' : report.score.total <= 50 ? '#ff223b' : report.score.total <= 75 ? '#f9fe08' : '#40e5aa';
+  const analysis = buildAnalysisPanels(bundle);
 
   const firesMarkup = fireCategories
     .map((key) => {
@@ -39,6 +41,102 @@ export function buildReportPdfHtml(bundle: ReportBundle): string {
 
   const redFlagsMarkup = report.redFlags.length > 0 ? report.redFlags.map((item) => `<li>${escapeHtml(item)}</li>`).join('') : '<li>No severe red flags detected in this pass.</li>';
   const positivesMarkup = report.positives.length > 0 ? report.positives.map((item) => `<li>${escapeHtml(item)}</li>`).join('') : '<li>No positive signals captured.</li>';
+
+  const contractFactsMarkup = analysis.contractFacts
+    .map(
+      (fact) => `
+        <div class="report-fact-card">
+          <span>${escapeHtml(fact.label)}</span>
+          <strong>${escapeHtml(fact.value)}</strong>
+          ${fact.sourceLabel ? `<p>${escapeHtml(fact.sourceLabel)}</p>` : ''}
+        </div>
+      `,
+    )
+    .join('');
+
+  const marketNotesMarkup = analysis.marketNotes.map((note) => `<li>${escapeHtml(note)}</li>`).join('');
+  const marketRowsMarkup = analysis.marketPairs.length > 0
+    ? analysis.marketPairs
+        .map(
+          (pair) => `
+            <div class="report-market-table__row">
+              <strong>${escapeHtml(pair.dexId ?? pair.chainId)}</strong>
+              <span>${escapeHtml(pair.baseLabel)} / ${escapeHtml(pair.quoteLabel)}</span>
+              <span>${escapeHtml(formatCurrency(pair.liquidityUsd))}</span>
+              <span>${escapeHtml(formatCurrency(pair.volume24hUsd))}</span>
+              <span>${escapeHtml(pair.fdv !== undefined ? formatCurrency(pair.fdv) : '—')}</span>
+              <span>${escapeHtml(pair.pairAgeDays !== undefined ? `${Math.round(pair.pairAgeDays)} j` : '—')}</span>
+              <p class="report-market-table__meta">${escapeHtml(formatAddress(pair.pairAddress))}</p>
+            </div>
+          `,
+        )
+        .join('')
+    : '<div class="report-market-table__empty">Aucune paire structurable pour le moment.</div>';
+
+  const socialMarkup = analysis.socialOverview.channels.length > 0
+    ? analysis.socialOverview.channels
+        .map(
+          (channel) => `
+            <article class="report-social-card">
+              <div class="report-social-card__head">
+                <div>
+                  <p class="report-social-card__kicker">${escapeHtml(channel.label)}</p>
+                  <h3>${escapeHtml(channel.detail)}</h3>
+                </div>
+                <span class="chip chip--safe">${escapeHtml(channel.key)}</span>
+              </div>
+              <div class="report-social-card__meta">
+                ${channel.handle ? `<span>@${escapeHtml(channel.handle)}</span>` : ''}
+                ${channel.memberCount !== undefined ? `<span>${escapeHtml(String(channel.memberCount))} members</span>` : ''}
+                ${channel.onlineCount !== undefined ? `<span>${escapeHtml(String(channel.onlineCount))} online</span>` : ''}
+                ${channel.method ? `<span>${escapeHtml(channel.method)}</span>` : ''}
+              </div>
+              ${channel.sourceUrl ? `<a href="${escapeHtml(channel.sourceUrl)}">${escapeHtml(channel.sourceUrl)}</a>` : ''}
+            </article>
+          `,
+        )
+        .join('')
+    : '<div class="report-market-table__empty">Aucun signal social structuré pour le moment.</div>';
+
+  const socialNotesMarkup = analysis.socialOverview.notes.length > 0 ? analysis.socialOverview.notes.map((note) => `<li>${escapeHtml(note)}</li>`).join('') : '<li>Aucune note sociale additionnelle.</li>';
+
+  const firesDetailMarkup = analysis.fires
+    .map((pillar) => {
+      const verdictLevel = scoreToVerdict(pillar.score);
+      const tone = verdictLevel === 'critical' ? 'critical' : verdictLevel === 'high' ? 'critical' : verdictLevel === 'moderate' ? 'warning' : 'safe';
+      const verdictLabel = verdictLevel === 'critical' ? 'Critique' : verdictLevel === 'high' ? 'Élevé' : verdictLevel === 'moderate' ? 'Modéré' : 'Faible';
+      const positives = pillar.positives.length > 0 ? pillar.positives.map((evidence) => `<li>${escapeHtml(evidence.title)}</li>`).join('') : '<li>Aucun signal positif dans ce pilier.</li>';
+      const risks = pillar.risks.length > 0 ? pillar.risks.map((evidence) => `<li>${escapeHtml(evidence.title)}</li>`).join('') : '<li>Aucun risque critique dans ce pilier.</li>';
+      const missing = pillar.missing.length > 0 ? pillar.missing.map((evidence) => `<li>${escapeHtml(evidence.title)}</li>`).join('') : '<li>Aucun manque majeur dans ce pilier.</li>';
+      return `
+        <article class="report-fire-card">
+          <div class="report-fire-card__head">
+            <strong>${pillar.key.slice(0, 1).toUpperCase()}</strong>
+            <div>
+              <strong>${escapeHtml(pillar.label)}</strong>
+              <p>${escapeHtml(verdictLabel)}</p>
+            </div>
+            <strong>${pillar.score}</strong>
+          </div>
+          <div class="score-bar score-bar--${tone}"><div class="score-bar__track"><div class="score-bar__fill" style="width: ${Math.max(0, Math.min(100, (pillar.score / 100) * 100))}%"></div></div></div>
+          <div class="report-fire-card__grid">
+            <div>
+              <p class="report-fire-card__kicker">Confirmé</p>
+              <ul class="list">${positives}</ul>
+            </div>
+            <div>
+              <p class="report-fire-card__kicker">Risques</p>
+              <ul class="list">${risks}</ul>
+            </div>
+            <div>
+              <p class="report-fire-card__kicker">Données manquantes</p>
+              <ul class="list">${missing}</ul>
+            </div>
+          </div>
+        </article>
+      `;
+    })
+    .join('');
 
   const evidencesMarkup = evidences
     .map((evidence) => {
@@ -232,6 +330,47 @@ export function buildReportPdfHtml(bundle: ReportBundle): string {
           <h3>Positives</h3>
           <ul class="list">${positivesMarkup}</ul>
         </article>
+      </section>
+
+      <section class="columns">
+        <article class="panel">
+          <p class="eyebrow">Contract / token</p>
+          <h2>Fiche principale</h2>
+          <div class="report-facts-grid">${contractFactsMarkup}</div>
+        </article>
+        <article class="panel">
+          <p class="eyebrow">Marché / pools</p>
+          <h2>Liquidité et paires</h2>
+          <ul class="list">${marketNotesMarkup}</ul>
+          <div style="height: 14px"></div>
+          <div class="report-market-overview">
+            <div class="report-market-overview__stat"><span>Paires détectées</span><strong>${analysis.marketPairs.length}</strong></div>
+            <div class="report-market-overview__stat"><span>Meilleure liquidité</span><strong>${analysis.bestMarketPair ? escapeHtml(formatCurrency(analysis.bestMarketPair.liquidityUsd)) : '—'}</strong></div>
+            <div class="report-market-overview__stat"><span>Volume 24h</span><strong>${analysis.bestMarketPair ? escapeHtml(formatCurrency(analysis.bestMarketPair.volume24hUsd)) : '—'}</strong></div>
+            <div class="report-market-overview__stat"><span>Âge paire</span><strong>${analysis.bestMarketPair?.pairAgeDays !== undefined ? `${Math.round(analysis.bestMarketPair.pairAgeDays)} j` : '—'}</strong></div>
+          </div>
+          <div style="height: 14px"></div>
+          <div class="report-market-table">
+            <div class="report-market-table__head">
+              <span>DEX</span><span>Paire</span><span>Liquidité</span><span>Volume 24h</span><span>FDV</span><span>Âge</span>
+            </div>
+            ${marketRowsMarkup}
+          </div>
+        </article>
+      </section>
+
+      <section class="panel" style="margin-bottom: 20px;">
+        <p class="eyebrow">Social intelligence</p>
+        <h2>X / Telegram / Discord</h2>
+        <div class="report-social-grid">${socialMarkup}</div>
+        <div style="height: 14px"></div>
+        <h3>Notes sociales</h3>
+        <ul class="list">${socialNotesMarkup}</ul>
+      </section>
+
+      <section class="panel" style="margin-bottom: 20px;">
+        <p class="eyebrow">FIRES détaillé</p>
+        <div class="report-fires-detail-grid">${firesDetailMarkup}</div>
       </section>
 
       <section class="panel" style="margin-bottom: 20px;">

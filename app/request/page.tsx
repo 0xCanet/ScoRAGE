@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 import { RequestForm } from '@/components/request/request-form';
 import { AppTopbar } from '@/components/app/app-topbar';
 
@@ -11,11 +9,15 @@ export default function RequestPage() {
       <div className="container request-shell__inner">
         <div className="request-page__hero">
           <p className="eyebrow">Nouvelle analyse</p>
-          <h1>Colle l&apos;adresse. On vérifie.</h1>
+          <h1>Lance une analyse avant d&apos;acheter.</h1>
           <p className="request-shell__copy">
-            Analyse complète on-chain et off-chain en 2 à 5 minutes pour Solana, BSC, Base et Ethereum. 
-            Le rapport généré suit le framework F.I.R.E.S.
+            Donne-nous l&apos;adresse du contrat. ScoRAGE prépare un verdict lisible, partageable et structuré par le framework F.I.R.E.S. en 2 à 5 minutes.
           </p>
+          <div className="request-shell__bullets">
+            <span>Score /100</span>
+            <span>Red flags priorisés</span>
+            <span>Rapport web + PDF</span>
+          </div>
         </div>
 
         <div className="request-form-wrapper">

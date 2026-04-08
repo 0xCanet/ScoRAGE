@@ -21,8 +21,7 @@ function MissingReportState() {
               Nouvelle analyse
             </Link>
             <Link href="/dashboard" className="btn-secondary">
-              Tableau de bord
-            </Link>
+              Centre de surveillance            </Link>
           </div>
         </section>
       </div>

@@ -22,26 +22,22 @@ const verdictMetaMap: Record<VerdictLevel, Omit<VerdictMeta, 'level'>> = {
     label: 'Critique',
     tone: 'critical',
     badgeLabel: 'Risque critique',
-    description: "Le profil de risque est élevé. Considérez cet actif comme non fiable tant que le contrat et le modèle de supply n'ont pas été vérifiés indépendamment.",
-  },
+    description: 'Le profil de risque est critique. Considère cet actif comme non fiable tant que le contrat, le supply et les privilèges owner ne sont pas vérifiés.',  },
   high: {
     label: 'Élevé',
     tone: 'high',
     badgeLabel: 'Risque élevé',
-    description: 'Plusieurs signaux faibles ont été identifiés. Une revue manuelle est fortement recommandée avant toute prise de position.',
-  },
+    description: 'Plusieurs signaux faibles ont été détectés. Une revue manuelle sérieuse est recommandée avant toute prise de position.',  },
   moderate: {
     label: 'Modéré',
     tone: 'moderate',
     badgeLabel: 'Risque modéré',
-    description: "Le profil est mixte. Certains contrôles sont acceptables, mais le contrat mérite un examen approfondi.",
-  },
+    description: 'Le profil est mitigé. Certains signaux sont corrects, mais le contrat mérite encore une revue plus approfondie.',  },
   low: {
     label: 'Faible',
     tone: 'low',
-    badgeLabel: 'Risque faible',
-    description: "L'analyse actuelle montre un profil comparativement plus sain, mais chaque token doit être vérifié avant achat.",
-  },
+    badgeLabel: 'Risque contenu',
+    description: 'Le premier passage est plutôt rassurant, mais tout token doit encore être validé avant achat.',  },
 };
 
 const statusMetaMap: Record<ReportStatus, ReportStatusMeta> = {
@@ -52,8 +48,7 @@ const statusMetaMap: Record<ReportStatus, ReportStatusMeta> = {
   },
   completed: {
     status: 'completed',
-    label: 'Terminé',
-    tone: 'safe',
+    label: 'Terminée',    tone: 'safe',
   },
   failed: {
     status: 'failed',

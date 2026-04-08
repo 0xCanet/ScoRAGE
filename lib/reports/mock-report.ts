@@ -7,7 +7,7 @@ import { chainLabels } from '@/types/project';
 import type { Report, ReportBundle, ReportRequest, ReportRequestInput } from '@/types/report';
 import { scoreToVerdict, type ScoreBreakdown } from '@/types/score';
 
-const methodologyVersion = 'fires-mock-v1';
+const methodologyVersion = 'fires-v1';
 
 const clampScore = (value: number): number => Math.max(0, Math.min(100, Math.round(value)));
 
@@ -62,15 +62,14 @@ const evidenceDetail = (category: string, chain: Project['chain'], address: stri
   const label = chainLabels[chain];
 
   if (score <= 25) {
-    return `${label} : le signal ${category} est critique pour ${shortAddress(address)}.`;
+    return `${label} : signal critique détecté pour ${shortAddress(address)}. La vérification manuelle est prioritaire.`;
   }
 
   if (score <= 55) {
-    return `${label} : le profil ${category} est mixte pour ${shortAddress(address)} et necessite un examen approfondi.`;
+    return `${label} : profil mitigé pour ${shortAddress(address)}. Des vérifications complémentaires sont nécessaires.`;
   }
 
-  return `${label} : les controles ${category} sont acceptables pour ${shortAddress(address)}.`;
-};
+  return `${label} : les signaux disponibles restent corrects pour ${shortAddress(address)} à ce stade.`;};
 
 export function buildMockReportBundle({
   request,
@@ -118,10 +117,9 @@ export function buildMockReportBundle({
     const severity = scoreSeverity(categoryScore);
     const label = evidenceCategoryLabels[category];
     const titleMap: Record<'critical' | 'warning' | 'positive', string> = {
-      critical: `${label} — alerte critique`,
-      warning: `${label} — attention`,
-      positive: `${label} — controle OK`,
-    };
+      critical: `${label} à risque`,
+      warning: `${label} à surveiller`,
+      positive: `${label} rassurant`,    };
 
     return {
       id: randomUUID(),
@@ -138,10 +136,9 @@ export function buildMockReportBundle({
   });
 
   const positives = [
-    request.websiteUrl ? 'Site web officiel fourni avec la demande.' : 'Pas de site web fourni, mais la demande est complete.',
-    request.xUrl ? 'Profil X public fourni pour la verification de reputation.' : 'Analyse possible sans liens sociaux.',
-    request.telegramUrl ? 'URL de la communaute Telegram disponible.' : 'Pas de lien Telegram fourni.',
-  ].filter((value): value is string => Boolean(value));
+    request.websiteUrl ? 'Site officiel fourni pour vérifier la présence publique du projet.' : 'Aucun site officiel fourni à ce stade.',
+    request.xUrl ? 'Compte X fourni pour enrichir la lecture réputationnelle.' : 'Aucun compte X fourni pour la revue réputationnelle.',
+    request.telegramUrl ? 'Lien Telegram disponible pour vérifier la communauté.' : 'Aucun lien Telegram fourni.',  ].filter((value): value is string => Boolean(value));
 
   const redFlags = evidences
     .filter((evidence) => evidence.severity !== 'positive')
@@ -149,13 +146,12 @@ export function buildMockReportBundle({
 
   const summary =
     verdict === 'critical'
-      ? `${projectLabel} sur ${chainLabels[request.chain]} presente un profil de risque critique. Considerez ce token comme non fiable tant que le contrat, le supply et le modele de propriete n'ont pas ete verifies independamment.`
+      ? `${projectLabel} sur ${chainLabels[request.chain]} présente un profil de risque critique. Le token doit être considéré comme non fiable tant que le contrat, le supply et les privilèges owner ne sont pas vérifiés.`
       : verdict === 'high'
-        ? `${projectLabel} sur ${chainLabels[request.chain]} presente un risque eleve. Le moteur F.I.R.E.S. a detecte plusieurs signaux faibles qui meritent une revue manuelle.`
+        ? `${projectLabel} sur ${chainLabels[request.chain]} présente un risque élevé. Plusieurs signaux faibles appellent une revue manuelle avant toute décision.`
         : verdict === 'moderate'
-          ? `${projectLabel} sur ${chainLabels[request.chain]} presente un risque mixte. Certains signaux sont acceptables, mais le contrat necessite un examen approfondi.`
-          : `${projectLabel} sur ${chainLabels[request.chain]} presente un profil comparativement plus sain, mais chaque token doit etre verifie avant achat.`;
-
+          ? `${projectLabel} sur ${chainLabels[request.chain]} reste mitigé. Certains signaux sont corrects, mais le contrat mérite encore une analyse plus poussée.`
+          : `${projectLabel} sur ${chainLabels[request.chain]} ressort comme relativement plus sain sur ce premier passage, mais une vérification reste nécessaire avant achat.`;
   const report: Report = {
     id: reportId,
     projectId,

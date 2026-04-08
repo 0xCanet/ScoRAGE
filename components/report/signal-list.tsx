@@ -2,7 +2,7 @@ import React from 'react';
 
 type SignalListProps = {
   items: string[];
-  type: 'critical' | 'warning' | 'positive';
+  type: 'critical' | 'warning' | 'positive' | 'neutral';
   emptyMessage: string;
 };
 
@@ -23,6 +23,8 @@ export function SignalList({ items, type, emptyMessage }: SignalListProps) {
         return <span className="signal-list__icon signal-list__icon--warning">⚠</span>;
       case 'positive':
         return <span className="signal-list__icon signal-list__icon--positive">✓</span>;
+      case 'neutral':
+        return <span className="signal-list__icon">•</span>;
     }
   };
 

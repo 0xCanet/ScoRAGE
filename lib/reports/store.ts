@@ -7,6 +7,7 @@ import type { ReportBundle, ReportRequestInput } from '@/types/report';
 import { scoreToVerdict } from '@/types/score';
 
 import { buildMockReportBundle } from './mock-report';
+import { buildLiveReportBundle } from './live-report';
 import { fromEvidenceRow, fromProjectRow, fromReportRequestRow, fromReportRow, toEvidenceRow, toProjectRow, toReportRequestRow, toReportRow, type EvidenceRow, type ProjectRow, type ReportRequestRow, type ReportRow } from './serializer';
 import { summarizeReportBundles } from './summary';
 
@@ -47,7 +48,7 @@ const seedSpecs: Array<{ projectId: string; reportId: string; requestId: string;
       websiteUrl: 'https://nightfox.example',
       xUrl: 'https://x.com/nightfox',
       telegramUrl: 'https://t.me/nightfox',
-      notes: 'Seeded dashboard sample.',
+      notes: 'Échantillon de démonstration.',
     },
   },
   {
@@ -61,7 +62,7 @@ const seedSpecs: Array<{ projectId: string; reportId: string; requestId: string;
       projectName: 'Pulse Router',
       websiteUrl: 'https://pulserouter.example',
       xUrl: 'https://x.com/pulserouter',
-      notes: 'Seeded dashboard sample.',
+      notes: 'Échantillon de démonstration.',
     },
   },
   {
@@ -76,7 +77,7 @@ const seedSpecs: Array<{ projectId: string; reportId: string; requestId: string;
       websiteUrl: 'https://ironfinch.example',
       xUrl: 'https://x.com/ironfinch',
       telegramUrl: 'https://t.me/ironfinch',
-      notes: 'Seeded dashboard sample.',
+      notes: 'Échantillon de démonstration.',
     },
   },
 ];
@@ -178,10 +179,9 @@ const readBundleFromSupabase = async (reportId: string): Promise<CachedBundle | 
   const evidences = ((evidenceRows ?? []) as EvidenceRow[]).map(fromEvidenceRow);
   const request = requestRow ? fromReportRequestRow(requestRow) : undefined;
   const positives = [
-    request?.payload.websiteUrl ? 'Site web officiel fourni avec la demande.' : undefined,
-    request?.payload.xUrl ? 'Profil X public fourni pour la verification de reputation.' : undefined,
-    request?.payload.telegramUrl ? 'URL de la communaute Telegram disponible.' : undefined,
-    ...evidences.filter((evidence) => evidence.severity === 'positive').map((evidence) => evidence.title),
+    request?.payload.websiteUrl ? 'Site officiel fourni pour vérifier la présence publique du projet.' : undefined,
+    request?.payload.xUrl ? 'Compte X fourni pour enrichir la lecture réputationnelle.' : undefined,
+    request?.payload.telegramUrl ? 'Lien Telegram disponible pour vérifier la communauté.' : undefined,    ...evidences.filter((evidence) => evidence.severity === 'positive').map((evidence) => evidence.title),
   ].filter((value): value is string => Boolean(value));
 
   const redFlags = evidences.filter((evidence) => evidence.severity !== 'positive').map((evidence) => evidence.title);
@@ -213,7 +213,7 @@ export async function createReportFromRequest(input: ReportRequestInput): Promis
   const reportId = randomUUID();
   const requestId = randomUUID();
 
-  const bundle = buildMockReportBundle({
+  const bundle = await buildLiveReportBundle({
     request: validation.data,
     projectId,
     reportId,
@@ -233,7 +233,26 @@ export async function getReportBundle(reportId: string): Promise<CachedBundle | 
     return cached;
   }
 
-  return readBundleFromSupabase(reportId);
+  const fromSupabase = await readBundleFromSupabase(reportId);
+  if (fromSupabase) {
+    return fromSupabase;
+  }
+
+  const seedSpec = seedSpecs.find((spec) => spec.reportId === reportId);
+  if (!seedSpec) {
+    return null;
+  }
+
+  const seedBundle = buildMockReportBundle({
+    request: seedSpec.request,
+    projectId: seedSpec.projectId,
+    reportId: seedSpec.reportId,
+    requestId: seedSpec.requestId,
+    createdAt: seedSpec.createdAt,
+  });
+
+  cacheBundle(seedBundle);
+  return seedBundle;
 }
 
 export async function listReportSummaries(): Promise<ReportSummary[]> {
