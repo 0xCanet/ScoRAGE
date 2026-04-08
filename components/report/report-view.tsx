@@ -10,6 +10,7 @@ import { getReportStatusMeta, getVerdictBadgeTone, getVerdictMeta } from '@/lib/
 import { formatReportDate, reportProjectLabel, shortAddress } from '@/lib/reports/summary';
 
 import { ReportActions } from './report-actions';
+import { ReportAnnotations } from './report-annotations';
 import { SignalList } from './signal-list';
 import { ScoreBar } from '@/components/ui/score-bar';
 
@@ -109,6 +110,8 @@ export function ReportView({ bundle }: { bundle: ReportBundle }) {
           </div>
         </aside>
       </section>
+
+      <ReportAnnotations reportId={report.id} initialAnnotations={bundle.annotations ?? []} />
 
       <section className="report-grid report-grid--meta">
         <article className="card report-section-card">

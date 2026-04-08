@@ -23,6 +23,13 @@ export type ReportRequest = {
   createdAt: string;
 };
 
+export type ReportAnnotation = {
+  id: string;
+  reportId: string;
+  content: string;
+  createdAt: string;
+};
+
 export type Report = {
   id: string;
   projectId: string;
@@ -42,4 +49,5 @@ export type ReportBundle = {
   report: Report;
   evidences: Evidence[];
   request?: ReportRequest;
+  annotations?: ReportAnnotation[];
 };

@@ -1,6 +1,6 @@
 import type { Evidence, EvidenceCategory, EvidenceSeverity } from '@/types/evidence';
 import type { Project, Chain } from '@/types/project';
-import type { Report, ReportRequest, ReportRequestInput } from '@/types/report';
+import type { Report, ReportAnnotation, ReportRequest, ReportRequestInput } from '@/types/report';
 import type { ScoreBreakdown, VerdictLevel } from '@/types/score';
 
 export type ProjectRow = {
@@ -50,6 +50,13 @@ export type ReportRequestRow = {
   project_id: string;
   report_id: string;
   request_payload: ReportRequestInput;
+  created_at: string;
+};
+
+export type ReportAnnotationRow = {
+  id: string;
+  report_id: string;
+  content: string;
   created_at: string;
 };
 
@@ -154,5 +161,19 @@ export const fromReportRequestRow = (row: ReportRequestRow): ReportRequest => ({
   projectId: row.project_id,
   reportId: row.report_id,
   payload: row.request_payload,
+  createdAt: row.created_at,
+});
+
+export const toReportAnnotationRow = (annotation: ReportAnnotation): ReportAnnotationRow => ({
+  id: annotation.id,
+  report_id: annotation.reportId,
+  content: annotation.content,
+  created_at: annotation.createdAt,
+});
+
+export const fromReportAnnotationRow = (row: ReportAnnotationRow): ReportAnnotation => ({
+  id: row.id,
+  reportId: row.report_id,
+  content: row.content,
   createdAt: row.created_at,
 });

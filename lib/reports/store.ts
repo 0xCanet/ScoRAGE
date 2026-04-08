@@ -3,15 +3,21 @@ import { randomUUID } from 'node:crypto';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { validateReportRequest } from '@/lib/validation/report-request';
 import type { Project } from '@/types/project';
-import type { ReportBundle, ReportRequestInput } from '@/types/report';
+import type { ReportAnnotation, ReportBundle, ReportRequestInput } from '@/types/report';
 import { scoreToVerdict } from '@/types/score';
 
 import { buildMockReportBundle } from './mock-report';
 import { buildLiveReportBundle } from './live-report';
-import { fromEvidenceRow, fromProjectRow, fromReportRequestRow, fromReportRow, toEvidenceRow, toProjectRow, toReportRequestRow, toReportRow, type EvidenceRow, type ProjectRow, type ReportRequestRow, type ReportRow } from './serializer';
+import { fromEvidenceRow, fromProjectRow, fromReportAnnotationRow, fromReportRequestRow, fromReportRow, toEvidenceRow, toProjectRow, toReportAnnotationRow, toReportRequestRow, toReportRow, type EvidenceRow, type ProjectRow, type ReportAnnotationRow, type ReportRequestRow, type ReportRow } from './serializer';
 import { summarizeReportBundles } from './summary';
 
 type CachedBundle = ReportBundle;
+
+type ReportAnnotationInsert = {
+  reportId: string;
+  content: string;
+  createdAt: string;
+};
 
 export type ReportSummary = {
   reportId: string;
@@ -144,6 +150,15 @@ const persistBundleToSupabase = async (bundle: CachedBundle): Promise<boolean> =
       }
     }
 
+    const annotationRows = (bundle.annotations ?? []).map(toReportAnnotationRow);
+    if (annotationRows.length > 0) {
+      const { error: annotationError } = await supabase.from('report_annotations').upsert(annotationRows);
+
+      if (annotationError) {
+        throw annotationError;
+      }
+    }
+
     return true;
   } catch {
     return false;
@@ -175,13 +190,20 @@ const readBundleFromSupabase = async (reportId: string): Promise<CachedBundle | 
     .select('*')
     .eq('report_id', reportId)
     .maybeSingle<ReportRequestRow>();
+  const { data: annotationRows } = await supabase
+    .from('report_annotations')
+    .select('*')
+    .eq('report_id', reportId)
+    .order('created_at', { ascending: false });
 
   const evidences = ((evidenceRows ?? []) as EvidenceRow[]).map(fromEvidenceRow);
   const request = requestRow ? fromReportRequestRow(requestRow) : undefined;
+  const annotations = ((annotationRows ?? []) as ReportAnnotationRow[]).map(fromReportAnnotationRow);
   const positives = [
     request?.payload.websiteUrl ? 'Site officiel fourni pour vérifier la présence publique du projet.' : undefined,
     request?.payload.xUrl ? 'Compte X fourni pour enrichir la lecture réputationnelle.' : undefined,
-    request?.payload.telegramUrl ? 'Lien Telegram disponible pour vérifier la communauté.' : undefined,    ...evidences.filter((evidence) => evidence.severity === 'positive').map((evidence) => evidence.title),
+    request?.payload.telegramUrl ? 'Lien Telegram disponible pour vérifier la communauté.' : undefined,
+    ...evidences.filter((evidence) => evidence.severity === 'positive').map((evidence) => evidence.title),
   ].filter((value): value is string => Boolean(value));
 
   const redFlags = evidences.filter((evidence) => evidence.severity !== 'positive').map((evidence) => evidence.title);
@@ -195,6 +217,7 @@ const readBundleFromSupabase = async (reportId: string): Promise<CachedBundle | 
     },
     evidences,
     request,
+    annotations,
   };
 
   cacheBundle(bundle);
@@ -221,10 +244,38 @@ export async function createReportFromRequest(input: ReportRequestInput): Promis
     createdAt: now,
   });
 
-  cacheBundle(bundle);
-  await persistBundleToSupabase(bundle);
+  const bundleWithAnnotations: CachedBundle = {
+    ...bundle,
+    annotations: bundle.annotations ?? [],
+  };
 
-  return bundle;
+  cacheBundle(bundleWithAnnotations);
+  await persistBundleToSupabase(bundleWithAnnotations);
+
+  return bundleWithAnnotations;
+}
+
+export async function appendReportAnnotation(reportId: string, content: string): Promise<ReportAnnotation | null> {
+  const existing = await getReportBundle(reportId);
+  if (!existing) {
+    return null;
+  }
+
+  const annotation: ReportAnnotation = {
+    id: randomUUID(),
+    reportId,
+    content,
+    createdAt: new Date().toISOString(),
+  };
+
+  const nextBundle: CachedBundle = {
+    ...existing,
+    annotations: [annotation, ...(existing.annotations ?? [])],
+  };
+
+  cacheBundle(nextBundle);
+  await persistBundleToSupabase(nextBundle);
+  return annotation;
 }
 
 export async function getReportBundle(reportId: string): Promise<CachedBundle | null> {

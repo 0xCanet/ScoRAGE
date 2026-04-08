@@ -50,7 +50,15 @@ create table if not exists public.report_requests (
   created_at timestamptz not null default now()
 );
 
+create table if not exists public.report_annotations (
+  id uuid primary key default gen_random_uuid(),
+  report_id uuid not null references public.reports(id) on delete cascade,
+  content text not null,
+  created_at timestamptz not null default now()
+);
+
 create index if not exists projects_chain_idx on public.projects (chain);
 create index if not exists reports_project_id_idx on public.reports (project_id);
 create index if not exists evidences_report_id_idx on public.evidences (report_id);
 create index if not exists report_requests_report_id_idx on public.report_requests (report_id);
+create index if not exists report_annotations_report_id_idx on public.report_annotations (report_id);
